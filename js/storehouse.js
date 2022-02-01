@@ -7,32 +7,153 @@ import {
   AbstractClassException,
 } from "./exceptions.js";
 
-import {Product, Book, Music, Monitor} from "./products.js";
-import {Store} from "./store.js";
-import {Coords} from "./store.js";
-import {Category} from "./category.js";
+import { Product, Book, Music, Monitor } from "./products.js";
+import { Store } from "./store.js";
+import { Coords } from "./store.js";
+import { Category } from "./category.js";
 
-//Singleton
+class CategoryExistException extends BaseException {
+  constructor(category, fileName, lineNumber) {
+    super(
+      "Error: The category exist in the store house. " + category.title,
+      fileName,
+      lineNumber
+    );
+    this.name = "CategoryExistException";
+    this.category = category;
+  }
+}
+
+class CategoryNotExistException extends BaseException {
+  constructor(category, fileName, lineNumber) {
+    super(
+      "Error: The category doesn't exist in the store house. " + category.title,
+      fileName,
+      lineNumber
+    );
+    this.name = "CategoryNotExistException";
+    this.category = category;
+  }
+}
+
+class CategoryRemoveDefault extends BaseException {
+  constructor(category, fileName, lineNumber) {
+    super(
+      "Error: The category cannot be removed. " + category.title,
+      fileName,
+      lineNumber
+    );
+    this.name = "CategoryRemoveDefault";
+    this.category = category;
+  }
+}
+
+class ProductExistException extends BaseException {
+  constructor(product, fileName, lineNumber) {
+    super(
+      "Error: The product exist in the store house. " + product.serial,
+      fileName,
+      lineNumber
+    );
+    this.name = "ProductExistException";
+    this.product = product;
+  }
+}
+
+class ProductNotExistException extends BaseException {
+  constructor(product, fileName, lineNumber) {
+    super(
+      "Error: The product doesn't exist in the store house. " + product.serial,
+      fileName,
+      lineNumber
+    );
+    this.name = "ProductNotExistException";
+    this.product = product;
+  }
+}
+
+class StoreExistException extends BaseException {
+  constructor(store, fileName, lineNumber) {
+    super(
+      "Error: The store exist in the store house. " + store.name,
+      fileName,
+      lineNumber
+    );
+    this.name = "StoreExistException";
+    this.store = store;
+  }
+}
+
+class StoreNotExistException extends BaseException {
+  constructor(store, fileName, lineNumber) {
+    super(
+      "Error: The store doesn't exist in the store house. " + store.name,
+      fileName,
+      lineNumber
+    );
+    this.name = "StoreNotExistException";
+    this.store = store;
+  }
+}
+
+class NegativeStock extends BaseException {
+  constructor(stock, fileName, lineNumber) {
+    super(
+      "Error: The stock cannot be negative. " + stock,
+      fileName,
+      lineNumber
+    );
+    this.name = "NegativeStock";
+  }
+}
+
+//Declaración objeto StoreHouse mediante patrón Singleton
 let StoreHouse = (function () {
   let instantiated;
   function init() {
     //Definimos la clase StoreHouse
     class StoreHouse {
-      #name;
+      //Atributos privados
+      #name = "Default Name";
+      #defaultCategory = new Category("Default");
+
+      //Solución 2
+
+      /*Array de productos
+      [{
+        produtc: Product
+        categories: [Category]
+      }]
+      */
       #_products = [];
+
+      /*Array de Categorias
+      [Category]
+      */
       #_categories = [];
+
+      /*Array de Tiendas
+      [{
+        store: Store
+        products: [{
+          product: Product
+          categories: [Category]
+          stock: Number
+        }]
+      }]
+      */
       #_stores = [];
-      #_stock = [];
-      constructor(name) {
+
+      constructor() {
         //La función se invoca con el operador new
         if (!new.target) throw new InvalidAccessConstructorException();
 
-        //Validación de parámetros obligatorios
-        if (!name) throw new EmptyValueException("name");
-
-        //Atributos privados
-        this.#name = name;
+        //Atributos privados inicializados
+        this.#defaultCategory.description = "Default category";
+        this.#name = "Default Name";
+        this.#_categories.push(this.#defaultCategory);
       }
+
       //Propiedades de acceso a los atributos privados
       get name() {
         return this.#name;
@@ -44,6 +165,11 @@ let StoreHouse = (function () {
       }
 
       // Métodos privados
+      /**
+       * Busca un Category en el array #_categories
+       * @param {Category} value Category a encontrar
+       * @returns Number posicion en el array False no encontrado
+       */
       #findCategory = (value) => {
         if (!(value instanceof Category)) throw new InvalidObject();
         let index = 0;
@@ -56,52 +182,341 @@ let StoreHouse = (function () {
         return isExist ? index : false;
       };
 
+      /**
+       * Busca un Product en un array
+       * @param {Product} value Product a encontrar
+       * @param {Array[{product: Product}]} array Array de busqueda
+       * @returns Number posicion en el array False no encontrado
+       */
+      #findProduct = (value, array) => {
+        if (!(value instanceof Product)) throw new InvalidObject();
+        let index = 0;
+        let isExist = false;
+        while (!isExist && index <= array.length - 1) {
+          value.serial === array[index].product.serial
+            ? (isExist = true)
+            : index++;
+        }
+        return isExist ? index : false;
+      };
+
+      /**
+       * Busca un Store en el array _stores
+       * @param {Store} value Store a encontrar
+       * @returns Number posicion en el array False no encontrado
+       */
+      #findStore = (value) => {
+        if (!(value instanceof Store)) throw new InvalidObject();
+        let index = 0;
+        let isExist = false;
+        while (!isExist && index <= this.#_stores.length - 1) {
+          value.cif === this.#_stores[index].store.cif
+            ? (isExist = true)
+            : index++;
+        }
+        return isExist ? index : false;
+      };
+
       // Métodos públicos
-      get categories() {
-        let nextIndex = 0;
+      /* -- Iteradores -- */
+      //Iterador de productos (Para Testing y aprovecharlo otras funciones)
+      getProducts() {
+        let array = this.#_products;
         return {
-          next: function () {
-            return nextIndex < this.#_categories.length
-              ? { value: this.#_categories[nextIndex++], done: false }
-              : { done: true };
+          *[Symbol.iterator]() {
+            for (let product of array) {
+              yield product;
+            }
           },
         };
       }
 
-      get stores() {
-        let nextIndex = 0;
+      //Iterador de categorias
+      getCategories() {
+        let array = this.#_categories;
         return {
-          next: function () {
-            return nextIndex < this.#_stores.length
-              ? { value: this.#_stores[nextIndex++], done: false }
-              : { done: true };
+          *[Symbol.iterator]() {
+            for (let category of array) {
+              yield category;
+            }
           },
         };
       }
 
-      addCategory(value) {
-        if (!(value instanceof Category))
-          throw InvalidValueException("category", value);
-        if (this.#findCategory(value) === false) throw new ExistInArray();
-
-        this.#_categories.push(value);
+      //Iterador de tiendas
+      getStores() {
+        let array = this.#_stores;
+        return {
+          *[Symbol.iterator]() {
+            for (let store of array) {
+              yield store;
+            }
+          },
+        };
       }
 
-      removeCategory(value) {
-        if (!(value instanceof Category))
-          throw InvalidValueException("category", value);
-        let index = this.#findCategory(value);
-        if (index !== false) throw new NotExistInArray();
+      /**
+       * Pasada una Store dar Products segun Type y su stock
+       * @param {Store} store Store a iterar
+       * @param {Product.prototype} productType Type de los Products
+       * @returns Iterador de objetos {product: String, stock: Number} Products segun Type y su stock
+       */
+      getStoreProducts(store, productType = Product) {
+        if (!(store instanceof Store))
+          throw InvalidValueException("store", store);
+        if (!(productType === Product) && !(productType.__proto__ === Product))
+          throw InvalidValueException("product", productType);
+        let index = this.#findStore(store);
+        if (index === false) throw new StoreNotExistException(store);
+
+        let array = [];
+
+        for (let product of this.#_stores[index].products) {
+          if (product.product instanceof productType) {
+            array.push({ product: product.product.name, stock: product.stock });
+          }
+        }
+
+        return {
+          *[Symbol.iterator]() {
+            for (let product of array) {
+              yield product;
+            }
+          },
+        };
+      }
+
+      /**
+       * Pasada una Category buscar todos los Products segun Type con sus stock en todas las Store
+       * @param {Category} category Category a iterar
+       * @param {Product.prototype} productType Type de los Products
+       * @returns Iterador de objetos {product: String, stock: Number} Products segun Type y su stock
+       */
+      getCategoryProducts(category, productType = Product) {
+        if (!(category instanceof Category))
+          throw InvalidValueException("category", category);
+        if (!(productType === Product) && !(productType.__proto__ === Product))
+          throw InvalidValueException("product", productType);
+        let index = this.#findCategory(category);
+        if (index === false) throw new CategoryNotExistException(category);
+
+        let array = [];
+        for (let product of this.getProducts()) {
+          if (product.product instanceof productType) {
+            let stock = 0;
+            for (let store of this.getStores()) {
+              let index = store.products.findIndex(
+                (item) => item.product.serial === product.product.serial
+              );
+              if (index !== -1) stock += store.products[index].stock;
+            }
+            array.push({ product: product.product.name, stock: stock });
+          }
+        }
+
+        return {
+          *[Symbol.iterator]() {
+            for (let product of array) {
+              yield product;
+            }
+          },
+        };
+      }
+
+      /* -- Fin Iteradores -- */
+
+      /**
+       * Añade Category
+       * @param {Category} category Category a agregar
+       * @returns tamaño del array
+       */
+      addCategory(category) {
+        if (!(category instanceof Category))
+          throw InvalidValueException("category", category);
+        if (this.#findCategory(category) !== false)
+          throw new CategoryExistException(category);
+
+        this.#_categories.push(category);
+        return this.#_categories.length;
+      }
+
+      /**
+       * Borra Category
+       * @param {Category} category Category a borrar
+       * @returns tamaño del array
+       */
+      removeCategory(category) {
+        if (!(category instanceof Category))
+          throw InvalidValueException("category", category);
+        //No podrá borrar Default.
+        if (category.title === this.#defaultCategory.title)
+          throw new CategoryRemoveDefault(category);
+        //Guardar ubicacion o Excepcion
+        let index = this.#findCategory(category);
+        if (index === false) throw new CategoryNotExistException(category);
+
+        for (let product of this.#_products) {
+          let indexProd = product.categories.findIndex(
+            (item) => item.title === category.title
+          );
+          if (indexProd !== -1) product.categories.splice(indexProd, 1);
+          if (product.categories.length === 0)
+            product.categories.push(this.#defaultCategory);
+        }
 
         this.#_categories.splice(index, 1);
+        return this.#_categories.length;
       }
 
-      addProduct()
+      /**
+       * Añadir Product
+       * @param {Product} product Product a añadir
+       * @param  {...Category} categories Category a añadir (tantas como haya en StoreHouse)
+       * @returns tamaño del array
+       */
+      addProduct(product, ...categories) {
+        if (!(product instanceof Product))
+          throw InvalidValueException("product", product);
+        if (this.#findProduct(product, this.#_products) !== false)
+          throw new ProductExistException(product);
 
-      toString() {
-        return `Name: ${this.name}`;
+        //Set por si repite la categoría
+        let arrayCategories = new Set();
+
+        if (categories.length === 0) {
+          //No tenemos ninguna, le asignamos Default
+          arrayCategories.add(this.#defaultCategory);
+        } else {
+          //Guardamos Categorias en el array
+          for (let category of categories) {
+            //Validamos todas
+            if (!(category instanceof Category))
+              throw InvalidValueException("category", category);
+            if (this.#findCategory(category) === false)
+              throw new CategoryNotExistException(category);
+            arrayCategories.add(category);
+          }
+        }
+
+        //Pasamos el Set a un Array
+        this.#_products.push({
+          product: product,
+          categories: Array.from(arrayCategories),
+        });
+        return this.#_products.length;
+      }
+
+      /**
+       * Borra un Product
+       * @param {Product} product Product a borrar
+       * @returns tamaño del array
+       */
+      removeProduct(product) {
+        if (!(product instanceof Product))
+          throw InvalidValueException("product", product);
+        //Guardar ubicacion o Excepcion
+        let index = this.#findProduct(product, this.#_products);
+        if (index === false) throw new ProductNotExistException(product);
+
+        //Lo borramos tambíen de las tiendas
+        for (let store of this.getStores()) {
+          let indexStore = store.products.findIndex(
+            (item) => item.product.serial === product.serial
+          );
+          if (indexStore !== -1) store.products.splice(indexStore, 1);
+        }
+
+        this.#_products.splice(index, 1);
+        return this.#_products.length;
+      }
+
+      /**
+       * Añade Product a una Store
+       * @param {Product} product Product a añadir
+       * @param {Store} store Store a la que se le añade el Product
+       * @param {Number} stock Number que tiene a la venta
+       * @returns tamaño del array
+       */
+      addProductInStore(product, store, stock = 0) {
+        let indexStore = this.#findStore(store);
+        if (indexStore === false) throw new StoreNotExistException(store);
+        let indexProd = this.#findProduct(product, this.#_products);
+        if (indexProd === false) throw new ProductNotExistException(product);
+        if (
+          this.#findProduct(product, this.#_stores[indexStore].products) !==
+          false
+        )
+          throw new ProductExistException(product);
+        stock = parseInt(stock);
+        if (stock < 0) throw new NegativeStock(stock);
+        let newProd = this.#_products[indexProd];
+        newProd.stock = stock;
+        this.#_stores[indexStore].products.push(newProd);
+        return this.#_stores[indexStore].products.length;
+      }
+
+      /**
+       * Añadimos stock dado un Product y su Store
+       * @param {Product} product Product a amliar stock
+       * @param {Store} store Store a ampliar stock de su Product
+       * @param {Number} stock Number para aumentar Product a la venta
+       * @returns Number del nuevo stock
+       */
+      addQuantityProductInStore(product, store, stock = 1) {
+        let indexStore = this.#findStore(store);
+        if (indexStore === false) throw new StoreNotExistException(store);
+        let indexProd = this.#findProduct(
+          product,
+          this.#_stores[indexStore].products
+        );
+        if (indexProd === false) throw new ProductNotExistException(product);
+        stock = parseInt(stock);
+        if (stock < 0) throw new NegativeStock(stock);
+
+        this.#_stores[indexStore].products[indexProd].stock += stock;
+        return this.#_stores[indexStore].products[indexProd].stock;
+      }
+
+      /**
+       * Añadir Store
+       * @param {Store} store Store a añadir
+       * @returns tamaño del array
+       */
+      addStore(store) {
+        if (!(store instanceof Store))
+          throw InvalidValueException("store", store);
+        if (this.#findStore(store) !== false)
+          throw new StoreExistException(store);
+
+        this.#_stores.push({ store: store, products: [] });
+        return this.#_stores.length;
+      }
+
+      /**
+       * Borrar Store
+       * @param {*} store Store a borrar
+       * @returns tamaño del array
+       */
+      removeStore(store) {
+        if (!(store instanceof Store))
+          throw InvalidValueException("store", store);
+        let index = this.#findStore(store);
+        if (index === false) throw new StoreNotExistException(store);
+
+        this.#_stores.splice(index, 1);
+        return this.#_stores.length;
       }
     }
+    Object.defineProperty(StoreHouse.prototype, "name", { enumerable: true });
+    Object.defineProperty(StoreHouse.prototype, "_categories", {
+      enumerable: true,
+    });
+    Object.defineProperty(StoreHouse.prototype, "_stores", {
+      enumerable: true,
+    });
+    Object.defineProperty(StoreHouse.prototype, "_products", {
+      enumerable: true,
+    });
 
     let sh = new StoreHouse();
     Object.freeze(sh);
@@ -118,15 +533,25 @@ let StoreHouse = (function () {
   };
 })();
 
-//export { Errores };
+export {
+  CategoryExistException,
+  CategoryNotExistException,
+  CategoryRemoveDefault,
+  ProductExistException,
+  ProductNotExistException,
+  StoreExistException,
+  StoreNotExistException,
+  NegativeStock,
+};
 export default StoreHouse;
 export {
   BaseException,
   InvalidAccessConstructorException,
   EmptyValueException,
   InvalidValueException,
-  AbstractClassException} from "./exceptions.js"
-export {Product, Book, Music, Monitor} from "./products.js";
-export {Store} from "./store.js";
-export {Coords} from "./store.js";
-export {Category} from "./category.js";
+  AbstractClassException,
+} from "./exceptions.js";
+export { Product, Book, Music, Monitor } from "./products.js";
+export { Store } from "./store.js";
+export { Coords } from "./store.js";
+export { Category } from "./category.js";

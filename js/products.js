@@ -14,8 +14,11 @@ class Product {
   #price;
   #tax;
   #images;
-  constructor(serial, name, price, tax = Product.IVA, images) {
+  constructor(serial, name, price, tax = Product.IVA, images = []) {
+    //La función se invoca con el operador new
     if (!new.target) throw new InvalidAccessConstructorException();
+
+    //Clase abstacta, no se permiten instancias
     if (new.target === Product) throw new AbstractClassException("Product");
 
     //Validación de parámetros obligatorios
@@ -24,7 +27,7 @@ class Product {
     price = Number.parseFloat(price);
     if (!price || price <= 0) throw new InvalidValueException("price", price);
     if (!tax || tax < 0) throw new InvalidValueException("tax", tax);
-    if (!images) throw new EmptyValueException("images");
+    if (!(Array.isArray(images))) throw new InvalidValueException("images", images);
 
     this.#serial = serial;
     this.#name = name;
@@ -112,7 +115,6 @@ class Book extends Product {
   constructor(
     serial,
     name,
-    description,
     price,
     tax,
     images,
@@ -130,7 +132,7 @@ class Book extends Product {
       throw new InvalidValueException("serial: ISBN", serial);
 
     //Llamada al superconstructor.
-    super(serial, name, description, price, (tax = Product.IVA), images);
+    super(serial, name, price, tax = Product.IVA, images);
 
     //Validación de argumentos
     if (!editorial) throw new EmptyValueException("editorial");
@@ -221,7 +223,6 @@ class Music extends Product {
   constructor(
     serial,
     name,
-    description,
     price,
     tax,
     images,
@@ -234,11 +235,11 @@ class Music extends Product {
     if (!new.target) throw new InvalidAccessConstructorException();
 
     //Llamada al superconstructor.
-    super(serial, name, description, price, (tax = Product.IVA), images);
+    super(serial, name, price, tax = Product.IVA, images);
 
     //Validación de argumentos
     if (!band) throw new EmptyValueException("band");
-    if (!/^(\d{2}:\d{2})$/.test(length))
+    if (!/^(\d{1,2}:\d{2})$/.test(length))
       throw new InvalidValueException("length", length);
     if (!(date instanceof Date)) throw new InvalidValueException("date", date);
 
@@ -292,7 +293,7 @@ class Music extends Product {
   toString() {
     return (
       super.toString() +
-      ` Band: ${this.band} Genre: ${this.genre} Length: ${this.length} Date ${this.date.getDate}/${this.date.getMonth}/${this.date.getFullYear}`
+      ` Band: ${this.band} Genre: ${this.genre} Length: ${this.length} Date ${this.date.getDate()}/${this.date.getMonth()}/${this.date.getFullYear()}`
     );
   }
 }
@@ -313,7 +314,6 @@ class Monitor extends Product {
   constructor(
     serial,
     name,
-    description,
     price,
     tax,
     images,
@@ -321,22 +321,26 @@ class Monitor extends Product {
     refreshRate,
     size,
     color = "none",
-    inputType,
+    inputType = [],
     screenType
   ) {
     //La función se invoca con el operador new
     if (!new.target) throw new InvalidAccessConstructorException();
 
     //Llamada al superconstructor.
-    super(serial, name, description, price, (tax = Product.IVA), images);
+    super(serial, name, price, tax = Product.IVA, images);
 
     //Validación de argumentos
     if (!brand) throw new EmptyValueException("brand");
-    if (!/^(\d+Hz)$/.test(refreshRate))
+    if (!/^(\d{2,3}Hz)$/.test(refreshRate))
       throw new InvalidValueException("refreshRate", refreshRate);
-    if (!/^(\d+")$/.test(size)) throw new InvalidValueException("size", size);
-    if (!/^((HDMI)|(VGA)|(DVI)|(DP)|(USB-C))$/.test(inputType))
-      throw new InvalidValueException("inputType", inputType);
+    if (!/^(\d{1,2}(.\d{1})?")$/.test(size)) throw new InvalidValueException("size", size);
+    if (Array.isArray(inputType)) {
+      for (let input of inputType) {
+        if (!/^((HDMI)|(VGA)|(DVI)|(DP)|(USB-C))$/.test(input))
+          throw new InvalidValueException("inputType", input);
+      }
+    } else throw new InvalidValueException("inputType", inputType);
     if (!/^((Flat)|(Curved))$/i.test(screenType))
       throw new InvalidValueException("screenType", screenType);
 

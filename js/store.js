@@ -27,7 +27,7 @@ class Store {
     if (!name) throw new EmptyValueException("name");
     if (!address) throw new EmptyValueException("addres");
     if (!phone) throw new EmptyValueException("phone");
-    if (!/^(\d{3}\s\d{2}\s\d{2}\s\d{2})$/.test(phone))
+    if (!/^(\d{3}\s\d{2}\s\d{2}\s\d{2})||(\d{3}\s\d{3}\s\d{3})$/.test(phone))
       throw new InvalidValueException("phone", phone);
     if (!(coords instanceof Coords))
       throw new InvalidValueException("coords", coords);
@@ -73,7 +73,8 @@ class Store {
   }
 
   set phone(value) {
-    if (!value) throw new EmptyValueException("phone");
+    if (!/^(\d{3}\s\d{2}\s\d{2}\s\d{2})||(\d{3}\s\d{3}\s\d{3})$/.test(value))
+      throw new InvalidValueException("phone", value);
     this.#phone = value;
   }
 
@@ -89,7 +90,7 @@ class Store {
 
   // Métodos públicos
   toString() {
-    return `CIF: ${this.cif} Name: ${this.name} Address: ${this.address} Phone: ${this.phone} Coords: ${this.coords}`;
+    return `CIF: ${this.cif} Name: ${this.name} Address: ${this.address} Phone: ${this.phone} Coords[${this.coords}]`;
   }
 }
 Object.defineProperty(Store.prototype, "cif", { enumerable: true });
