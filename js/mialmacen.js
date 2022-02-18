@@ -1,3 +1,5 @@
-import * as StoreHouseTest from "./test.js";
+// import * as StoreHouseTest from "./test.js";
 
-StoreHouseTest.callAllTests();
+// StoreHouseTest.callAllTests();
+
+import "./storehouse/storehouseApp.js";

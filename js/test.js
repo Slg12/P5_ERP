@@ -1,12 +1,12 @@
 "use strict";
-import StoreHouse from "./storehouse.js";
+import StoreHouse from "./storehouse/storehouse.js";
 import {
   BaseException,
   InvalidAccessConstructorException,
   EmptyValueException,
   InvalidValueException,
   AbstractClassException,
-} from "./storehouse.js";
+} from "./storehouse/storehouse.js";
 import {
   CategoryExistException,
   CategoryNotExistException,
@@ -16,12 +16,12 @@ import {
   StoreExistException,
   StoreNotExistException,
   NegativeStock
-} from "./storehouse.js";
+} from "./storehouse/storehouse.js";
 
-import { Product, Book, Music, Monitor } from "./storehouse.js";
-import { Coords } from "./storehouse.js";
-import { Store } from "./storehouse.js";
-import { Category } from "./storehouse.js";
+import { Product, Book, Music, Monitor } from "./storehouse/storehouse.js";
+import { Coords } from "./storehouse/storehouse.js";
+import { Store } from "./storehouse/storehouse.js";
+import { Category } from "./storehouse/storehouse.js";
 
 //Crear variables de apoyo
 //Inicializar StoreHouse
@@ -410,7 +410,7 @@ function testShAddProductInStore() {
   } catch (e) {
     console.error(e.message);
   }
-  
+
   console.log("\nAñadir Producto a Store 6");
   try {
     storeHouse.addProductInStore(music1, store6)
@@ -471,7 +471,7 @@ function testShRemoveCategoryInProduct() {
     }
     console.groupEnd();
   }
-  
+
   console.log("\nRemove C-1, C-5, C-10");
   console.log(
     storeHouse.removeCategory(category1),
@@ -525,7 +525,7 @@ function testShAddQuantityProductInStore() {
   console.log(
     storeHouse.addQuantityProductInStore(music4, store3, 30)
   );
-  
+
   console.log("\nStores:");
   for (let store of storeHouse.getStores()) {
     console.groupCollapsed(" - " + store.store.cif + ": " + store.store.name + "\n   Prod: " + store.products.length);
@@ -662,7 +662,7 @@ function callAllTests() {
   console.groupCollapsed(" + Test Add-Remove Store()");
   testShAddRemoveStore();
   console.groupEnd();
-  
+
   console.groupCollapsed(" + Test Add ProductInStore()");
   testShAddProductInStore();
   console.groupEnd();
