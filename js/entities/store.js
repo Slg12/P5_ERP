@@ -5,7 +5,7 @@ import {
   EmptyValueException,
   InvalidValueException,
   AbstractClassException,
-} from "./exceptions.js";
+} from "../exceptions.js";
 
 import { Coords } from "./coords.js";
 
@@ -100,4 +100,4 @@ Object.defineProperty(Store.prototype, "phone", { enumerable: true });
 Object.defineProperty(Store.prototype, "coords", { enumerable: true });
 
 export { Store };
-export { Coords } from "./coords.js";
+export { Coords };

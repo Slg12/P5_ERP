@@ -5,7 +5,7 @@ import {
   EmptyValueException,
   InvalidValueException,
   AbstractClassException,
-} from "./exceptions.js";
+} from "../exceptions.js";
 
 //Definimos la clase Category
 class Category {

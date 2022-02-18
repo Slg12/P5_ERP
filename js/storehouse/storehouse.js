@@ -7,10 +7,10 @@ import {
 	AbstractClassException,
 } from "../exceptions.js";
 
-import { Product, Book, Music, Monitor } from "../products.js";
-import { Store } from "../store.js";
-import { Coords } from "../store.js";
-import { Category } from "../category.js";
+import { Product, Book, Music, Monitor } from "../entities/products.js";
+import { Store } from "../entities/store.js";
+import { Coords } from "../entities/store.js";
+import { Category } from "../entities/category.js";
 
 class CategoryExistException extends BaseException {
 	constructor(category, fileName, lineNumber) {
@@ -599,8 +599,8 @@ export {
 	EmptyValueException,
 	InvalidValueException,
 	AbstractClassException,
-} from "../exceptions.js";
-export { Product, Book, Music, Monitor } from "../products.js";
-export { Store } from "../store.js";
-export { Coords } from "../store.js";
-export { Category } from "../category.js";
+};
+export { Product, Book, Music, Monitor };
+export { Store };
+export { Coords };
+export { Category };

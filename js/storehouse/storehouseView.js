@@ -101,7 +101,7 @@ class StorehouseView {
 			this.productList.append($(`<h2>- ${type}</h2>`));
 		}
 
-		let allProducts = $(`<div class="d-flex"></div>`)
+		let allProducts = $(`<div class="row d-flex justify-content-center"></div>`)
 
 		for (let product of products) {
 			let stock = false;
