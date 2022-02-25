@@ -1,20 +1,20 @@
 import StoreHouse from "./storehouse.js";
 import {
-  BaseException,
-  InvalidAccessConstructorException,
-  EmptyValueException,
-  InvalidValueException,
-  AbstractClassException,
+	BaseException,
+	InvalidAccessConstructorException,
+	EmptyValueException,
+	InvalidValueException,
+	AbstractClassException,
 } from "./storehouse.js";
 import {
-  CategoryExistException,
-  CategoryNotExistException,
-  CategoryRemoveDefault,
-  ProductExistException,
-  ProductNotExistException,
-  StoreExistException,
-  StoreNotExistException,
-  NegativeStock
+	CategoryExistException,
+	CategoryNotExistException,
+	CategoryRemoveDefault,
+	ProductExistException,
+	ProductNotExistException,
+	StoreExistException,
+	StoreNotExistException,
+	NegativeStock
 } from "./storehouse.js";
 
 import { Product, Book, Music, Monitor } from "./storehouse.js";
@@ -78,8 +78,8 @@ class StorehouseController {
 		//5 Music nuevos
 		let music1 = new Music("Mc-1", "Wrecked", 3, null, ["disk1Front.jpg"], "Imagine Dragons", "Indie", "4:04", new Date());
 		let music2 = new Music("Mc-2", "Rime of the Ancient Mariner", 2.5, null, ["disk2Front.jpg"], "Iron Maiden", "Heavy Metal", "13:38", new Date());
-		let music3 = new Music("Mc-3", "Pigstep", 2, null, ["disk3Front.jpg", "disk3.jpg"], "Lena Raine", "Electronic", "2:29", new Date());
-		let music4 = new Music("Mc-4", "Ave María", 1.5, null, ["disk4Front.jpg", "disk4.jpg"], "David Bisbal", "Pop", "3:29", new Date());
+		let music3 = new Music("Mc-3", "Pigstep", 2, null, ["disk3Front.jpg", "disk3.jpg"], "Lena Raine", "Electronica", "2:29", new Date());
+		let music4 = new Music("Mc-4", "Fiddler on the Green", 1.5, null, ["disk4Front.jpg"], "Demons & Wizards", "Metal progresivo", "5:56", new Date());
 		let music5 = new Music("Mc-5", "Stressed Out", 3.5, null, ["disk5Front.jpg"], "Twenty One Pilots", "Hip-Hop/Rap", "3:22", new Date());
 
 		//5 Monitor nuevos
@@ -89,28 +89,28 @@ class StorehouseController {
 		let monitor4 = new Monitor("Mtr-4", "LG 29WN600-W", 245, null, ["monitor4.jpg"], "LG", "75Hz", '29"', "Gris", ["DP", "HDMI"], "Flat");
 		let monitor5 = new Monitor("Mtr-5", "Odyssey G9", 1499, null, ["monitor5.jpg", "monitor5Inputs.jpg"], "Samsung", "240Hz", '49"', "Negro", ["HDMI"], "Curved");
 
-    storeHouse.addProduct(book1, category1, category4, category5);
-    storeHouse.addProduct(book2, category1, category4, category5, category10);
-    storeHouse.addProduct(book3, category2, category6, category7, category8, category10);
-    storeHouse.addProduct(book4);
-    storeHouse.addProduct(book5, category1, category2, category6, category8, category9);
-    storeHouse.addProduct(music1, category1, category3, category5, category7, category8, category10);
-    storeHouse.addProduct(music2);
-    storeHouse.addProduct(music3, category2, category3, category5, category7, category8, category10);
-    storeHouse.addProduct(music4, category1, category2, category3, category4, category5, category6, category7, category8, category9, category10);
-    storeHouse.addProduct(music5, category1, category2, category3, category5, category7, category8, category10);
+		storeHouse.addProduct(book1, category1, category4, category5);
+		storeHouse.addProduct(book2, category1, category4, category5, category10);
+		storeHouse.addProduct(book3, category2, category6, category7, category8, category10);
+		storeHouse.addProduct(book4);
+		storeHouse.addProduct(book5, category1, category2, category6, category8, category9);
+		storeHouse.addProduct(music1, category1, category3, category5, category7, category8, category10);
+		storeHouse.addProduct(music2);
+		storeHouse.addProduct(music3, category2, category3, category5, category7, category8, category10);
+		storeHouse.addProduct(music4, category3, category4, category5, category6, category7, category10);
+		storeHouse.addProduct(music5, category1, category2, category3, category5, category7, category8, category10);
 		storeHouse.addProduct(monitor1, category6, category8, category9);
-    storeHouse.addProduct(monitor2, category1, category7, category8, category9);
+		storeHouse.addProduct(monitor2, category1, category7, category8, category9);
 		storeHouse.addProduct(monitor3, category6, category8, category9);
-    storeHouse.addProduct(monitor4);
-    storeHouse.addProduct(monitor5, category7, category8, category9);
+		storeHouse.addProduct(monitor4);
+		storeHouse.addProduct(monitor5, category7, category8, category9);
 
 		//5 Store nuevas
-		let store1 = new Store("A - 11111111", "Store 1", "C/Ejemplos 12", "111 11 11 11", new Coords(62, 72));
-		let store2 = new Store("B - 22222222", "Store 2", "C/Ejemplos 23", "222 222 222", new Coords(56, 0));
-		let store3 = new Store("C - 33333333", "Store 3", "Av/Ejemplo 34", "333 33 33 33", new Coords(42.6453, 45));
-		let store4 = new Store("D - 44444444", "Store 4", "C/Ejemplos 45", "444 444 444", new Coords(-67, -165));
-		let store5 = new Store("E - 55555555", "Store 5", "Av/Ejemplo 56", "555 55 55 55", new Coords(-28.6783, 134));
+		let store1 = new Store("A - 11111111", "Sweet Home", "C/Ejemplos 12", "111 11 11 11", new Coords(62, 72));
+		let store2 = new Store("B - 22222222", "Troy-Anne", "C/Ejemplos 23", "222 222 222", new Coords(56, 0));
+		let store3 = new Store("C - 33333333", "Geekpool", "Av/Ejemplo 34", "333 33 33 33", new Coords(42.6453, 45));
+		let store4 = new Store("D - 44444444", "HighSound", "C/Ejemplos 45", "444 444 444", new Coords(-67, -165));
+		let store5 = new Store("E - 55555555", "El Emporio", "Av/Ejemplo 56", "555 55 55 55", new Coords(-28.6783, 134));
 
 		storeHouse.addStore(store1);
 		storeHouse.addStore(store2);
@@ -119,41 +119,41 @@ class StorehouseController {
 		storeHouse.addStore(store5);
 
 		storeHouse.addProductInStore(book1, store1, 2);
-    storeHouse.addProductInStore(book2, store1, 23);
-    storeHouse.addProductInStore(monitor2, store1, 45);
-    storeHouse.addProductInStore(monitor4, store1);
-    storeHouse.addProductInStore(music5, store1, 4);
+		storeHouse.addProductInStore(book2, store1, 23);
+		storeHouse.addProductInStore(monitor2, store1, 45);
+		storeHouse.addProductInStore(monitor4, store1);
+		storeHouse.addProductInStore(music5, store1, 4);
 
 		storeHouse.addProductInStore(book3, store2, 75);
-    storeHouse.addProductInStore(music2, store2);
-    storeHouse.addProductInStore(monitor1, store2, 23);
+		storeHouse.addProductInStore(music2, store2);
+		storeHouse.addProductInStore(monitor1, store2, 23);
 
 		storeHouse.addProductInStore(music1, store3, 234);
-    storeHouse.addProductInStore(monitor3, store3, 54);
-    storeHouse.addProductInStore(music3, store3);
-    storeHouse.addProductInStore(book4, store3, 65);
-    storeHouse.addProductInStore(monitor4, store3, 36);
-    storeHouse.addProductInStore(music4, store3, 76);
-    storeHouse.addProductInStore(monitor5, store3, 24);
+		storeHouse.addProductInStore(monitor3, store3, 54);
+		storeHouse.addProductInStore(music3, store3);
+		storeHouse.addProductInStore(book4, store3, 65);
+		storeHouse.addProductInStore(monitor4, store3, 36);
+		storeHouse.addProductInStore(music4, store3, 76);
+		storeHouse.addProductInStore(monitor5, store3, 24);
 
 		storeHouse.addProductInStore(music1, store4, 80);
-    storeHouse.addProductInStore(monitor1, store4, 42);
+		storeHouse.addProductInStore(monitor1, store4, 42);
 
 		storeHouse.addProductInStore(book1, store5, 23);
-    storeHouse.addProductInStore(book2, store5, 63);
-    storeHouse.addProductInStore(book3, store5, 27);
-    storeHouse.addProductInStore(book4, store5, 45);
-    storeHouse.addProductInStore(book5, store5);
-    storeHouse.addProductInStore(music1, store5, 34);
-    storeHouse.addProductInStore(music2, store5, 75);
-    storeHouse.addProductInStore(music3, store5, 3);
-    storeHouse.addProductInStore(music4, store5);
-    storeHouse.addProductInStore(music5, store5, 87);
-    storeHouse.addProductInStore(monitor1, store5, 9);
-    storeHouse.addProductInStore(monitor2, store5, 3);
-    storeHouse.addProductInStore(monitor3, store5, 4);
-    storeHouse.addProductInStore(monitor4, store5, 37);
-    storeHouse.addProductInStore(monitor5, store5);
+		storeHouse.addProductInStore(book2, store5, 63);
+		storeHouse.addProductInStore(book3, store5, 27);
+		storeHouse.addProductInStore(book4, store5, 45);
+		storeHouse.addProductInStore(book5, store5);
+		storeHouse.addProductInStore(music1, store5, 34);
+		storeHouse.addProductInStore(music2, store5, 75);
+		storeHouse.addProductInStore(music3, store5, 3);
+		storeHouse.addProductInStore(music4, store5);
+		storeHouse.addProductInStore(music5, store5, 87);
+		storeHouse.addProductInStore(monitor1, store5, 9);
+		storeHouse.addProductInStore(monitor2, store5, 3);
+		storeHouse.addProductInStore(monitor3, store5, 4);
+		storeHouse.addProductInStore(monitor4, store5, 37);
+		storeHouse.addProductInStore(monitor5, store5);
 	}
 
 	constructor(model, view) {
@@ -172,16 +172,21 @@ class StorehouseController {
 	onLoad = () => {
 		this.#loadStorehouseObjects();
 		this.#storehouseView.rename(this.#storehouse.name);
-		this.onAddProduct();
+		this.onAddStore();
 		this.onAddCategory();
+		this.onAddProduct();
 	}
 
 	onInit = () => {
-		this.#storehouseView.showStores(this.#storehouse.getStores());
+		this.#storehouseView.reset();
 	}
 
 	handleInit = () => {
 		this.onInit();
+	}
+
+	onAddStore = () => {
+		this.#storehouseView.showStores(this.#storehouse.getStores());
 	}
 
 	onAddCategory = () => {
@@ -189,29 +194,35 @@ class StorehouseController {
 	}
 
 	onAddProduct = () => {
-		this.#storehouseView.showProductsInMenu("Libros", "Música", "Monitores");
+		this.#storehouseView.showProductsInMenu("Libro", "Música", "Monitor");
 	}
 
 	handleProductsCategoryList = (title) => {
 		let category = this.#storehouse.getCategory(title);
-		this.#storehouseView.listProducts(this.#storehouse.getCategoryProducts(category), "Categoria - " + category.title);
+		this.#storehouseView.listProducts(this.#storehouse.getCategoryProducts(category), "Categoría - " + category.title);
+		this.#storehouseView.bindShowProduct(this.handleShowProduct);
+	}
+
+	handleFilterStoreCategory = (title, cif) => {
+		let category = this.#storehouse.getCategory(title);
+		let store = this.#storehouse.getStore(cif);
+		this.#storehouseView.listProducts(this.#storehouse.getStoreCategoryProducts(store.store, category), store.store.name + " - " + category.title, store);
+		this.#storehouseView.bindFilterStoreCategory(this.handleFilterStoreCategory);
 		this.#storehouseView.bindShowProduct(this.handleShowProduct);
 	}
 
 	handleProductsStoreList = (cif) => {
 		let store = this.#storehouse.getStore(cif);
-		store = store.store;
-		this.#storehouseView.listProducts(this.#storehouse.getStoreProducts(store, Book), store.name + " - Libros");
-		this.#storehouseView.listProducts(this.#storehouse.getStoreProducts(store, Music), " Música", false);
-		this.#storehouseView.listProducts(this.#storehouse.getStoreProducts(store, Monitor), " Monitor", false);
+		this.#storehouseView.listProducts(this.#storehouse.getStoreProducts(store.store), store.store.name, store);
 		this.#storehouseView.bindShowProduct(this.handleShowProduct);
+		this.#storehouseView.bindFilterStoreCategory(this.handleFilterStoreCategory);
 	}
 
 	handleProductsTypeList = (type) => {
 		let instance = {
-			Libros: Book,
+			Libro: Book,
 			Música: Music,
-			Monitores: Monitor,
+			Monitor: Monitor,
 		}
 		if (instance[type]) {
 			this.#storehouseView.listProducts(this.#storehouse.getProducts(instance[type]), type);
@@ -221,12 +232,27 @@ class StorehouseController {
 		this.#storehouseView.bindShowProduct(this.handleShowProduct);
 	}
 
-	handleShowProduct = (serial) => {
+	handleShowProduct = (serial, cif) => {
 		try {
-			let product = this.#storehouse.getProduct(serial);
+			let store = cif == "false" ? false : this.#storehouse.getStore(cif);
+			let product = this.#storehouse.getProduct(serial, store);
+
 			this.#storehouseView.showProduct(product, this.#instance++);
+			this.#storehouseView.bindProductToCategory(this.handleProductsCategoryList);
+			this.#storehouseView.bindShowProductInNewWindow(this.handleShowProductInNewWindow);
 		} catch (error) {
 			this.#storehouseView.showProduct('No existe este producto en la página.');
+		}
+	}
+
+	handleShowProductInNewWindow = (serial) => {
+		try {
+			console.log(serial)
+			let product = this.#storehouse.getProduct(serial);
+
+			this.#storehouseView.showProductInNewWindow(product, this.#instance++);
+		} catch (error) {
+			this.#storehouseView.showProductInNewWindow(null, 'No existe este producto en la página.');
 		}
 	}
 }

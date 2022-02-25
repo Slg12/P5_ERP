@@ -231,7 +231,11 @@ let StoreHouse = (function () {
 							);
 							if (index !== -1) stock += store.products[index].stock;
 						}
-						array.push({ product: product.product, stock: stock });
+						array.push({
+							product: product.product,
+							categories: product.categories,
+							stock: stock,
+						});
 					}
 				}
 
@@ -286,7 +290,11 @@ let StoreHouse = (function () {
 
 				for (let product of this.#_stores[index].products) {
 					if (product.product instanceof productType) {
-						array.push({ product: product.product, stock: product.stock });
+						array.push({
+							product: product.product,
+							categories: product.categories,
+							stock: product.stock,
+						});
 					}
 				}
 
@@ -310,12 +318,15 @@ let StoreHouse = (function () {
 					throw InvalidValueException("category", category);
 				if (!(productType === Product) && !(productType.__proto__ === Product))
 					throw InvalidValueException("product", productType);
-				let index = this.#findCategory(category, this.#_categories);
-				if (index === false) throw new CategoryNotExistException(category);
+				let idxCtg = this.#findCategory(category, this.#_categories);
+				if (idxCtg === false) throw new CategoryNotExistException(category);
 
 				let array = [];
 				for (let product of this.#_products) {
-					index = this.#findCategory(category, product.categories);
+					let index = this.#findCategory(
+						this.#_categories[idxCtg],
+						product.categories
+					);
 					if (index !== false) {
 						if (product.product instanceof productType) {
 							let stock = 0;
@@ -325,7 +336,52 @@ let StoreHouse = (function () {
 								);
 								if (index !== -1) stock += store.products[index].stock;
 							}
-							array.push({ product: product.product, stock: stock });
+							array.push({
+								product: product.product,
+								categories: product.categories,
+								stock: stock,
+							});
+						}
+					}
+				}
+
+				return {
+					*[Symbol.iterator]() {
+						for (let product of array) {
+							yield product;
+						}
+					},
+				};
+			}
+
+			getStoreCategoryProducts(store, category, productType = Product) {
+				if (!(store instanceof Store))
+					throw InvalidValueException("store", store);
+				if (!(category instanceof Category))
+					throw InvalidValueException("category", category);
+				if (!(productType === Product) && !(productType.__proto__ === Product))
+					throw InvalidValueException("product", productType);
+				let idxCtg = this.#findCategory(category, this.#_categories);
+				if (idxCtg === false) throw new CategoryNotExistException(category);
+				let idxStr = this.#findStore(store);
+				if (idxStr === false) throw new StoreNotExistException(store);
+
+				let array = [];
+				let fullStore = this.#_stores[idxStr];
+				for (let product of fullStore.products) {
+					let indexCtg = this.#findCategory(this.#_categories[idxCtg], product.categories);
+					if (indexCtg !== false) {
+						if (product.product instanceof productType) {
+							let stock = 0;
+							let idxPrt = fullStore.products.findIndex(
+								(item) => item.product.serial === product.product.serial
+							);
+							if (idxPrt !== -1) stock += fullStore.products[idxPrt].stock;
+							array.push({
+								product: product.product,
+								categories: product.categories,
+								stock: stock,
+							});
 						}
 					}
 				}
@@ -341,21 +397,44 @@ let StoreHouse = (function () {
 
 			/* -- Fin Iteradores -- */
 
-			getProduct(serial) {
+			/**
+			 * Buscamos un producto solo con su serial con stock completo, por tienda con stock en propia la Store
+			 * @param {String} serial Product a buscar
+			 * @param {Store} store Store por la que buscar, o todas
+			 * @returns un objeto literal con el producto, sus categorías y su stock
+			 */
+			getProduct(serial, store = false) {
 				let index = this.#_products.findIndex(
 					(product) => product.product.serial === serial
 				);
 				if (index === -1) throw new ProductNotExistException(serial);
 
 				let stock = 0;
-				for (let store of this.getStores()) {
-					index = store.products.findIndex(
+
+				if (store) {
+					if (!(store.store instanceof Store))
+						throw InvalidValueException("store", store.store);
+					let idxStore = this.#findStore(store.store);
+					if (idxStore === false) throw new StoreNotExistException(store.store);
+
+					idxStore = store.products.findIndex(
 						(item) => item.product.serial === serial
 					);
-					if (index !== -1) stock += store.products[index].stock;
+					stock += store.products[idxStore].stock;
+				} else {
+					for (let store of this.getStores()) {
+						let idxStore = store.products.findIndex(
+							(item) => item.product.serial === serial
+						);
+						if (idxStore !== -1) stock += store.products[idxStore].stock;
+					}
 				}
 
-				return { product: this.#_products[index].product, categories: this.#_products[index].categories, stock: stock };
+				return {
+					product: this.#_products[index].product,
+					categories: this.#_products[index].categories,
+					stock: stock,
+				};
 			}
 
 			getCategory(title) {
@@ -367,9 +446,7 @@ let StoreHouse = (function () {
 			}
 
 			getStore(cif) {
-				let index = this.#_stores.findIndex(
-					(store) => store.store.cif === cif
-				);
+				let index = this.#_stores.findIndex((store) => store.store.cif === cif);
 				if (index === -1) throw new StoreNotExistException(cif);
 				return this.#_stores[index];
 			}
