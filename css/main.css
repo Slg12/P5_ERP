@@ -320,11 +320,22 @@ body {
 
 .product {
 	background-color: var(--ligthOrange-a);
-	position: relative;
-	top: 10px;
 	margin: auto;
 }
 
 .product .tags__link-circle {
 	background-color: var(--ligthGreen-a);
+}
+
+.product__title {
+	background-color: var(--ligthGreen-a);
+	border: 1px solid var(--darkGreen);
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top: none;
+	color:  var(--darkGreen);
+	margin: 0 auto 10px;
+	padding: 10px;
+	text-align: center;
+	width: 95%;
 }

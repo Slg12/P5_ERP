@@ -237,7 +237,7 @@ class StorehouseController {
 			let store = cif == "false" ? false : this.#storehouse.getStore(cif);
 			let product = this.#storehouse.getProduct(serial, store);
 
-			this.#storehouseView.showProduct(product, this.#instance++);
+			this.#storehouseView.showProduct(product, cif, this.#instance++);
 			this.#storehouseView.bindProductToCategory(this.handleProductsCategoryList);
 			this.#storehouseView.bindShowProductInNewWindow(this.handleShowProductInNewWindow);
 		} catch (error) {
@@ -245,10 +245,10 @@ class StorehouseController {
 		}
 	}
 
-	handleShowProductInNewWindow = (serial) => {
+	handleShowProductInNewWindow = (serial, cif) => {
 		try {
-			console.log(serial)
-			let product = this.#storehouse.getProduct(serial);
+			let store = cif == "false" ? false : this.#storehouse.getStore(cif);
+			let product = this.#storehouse.getProduct(serial, store);
 
 			this.#storehouseView.showProductInNewWindow(product, this.#instance++);
 		} catch (error) {

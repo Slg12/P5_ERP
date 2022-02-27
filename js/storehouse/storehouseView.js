@@ -234,7 +234,7 @@ class StorehouseView {
 		}
 	}
 
-	showProduct(product, instance) {
+	showProduct(product, cif, instance) {
 		this.singleProduct.empty();
 		this.productList.empty();
 		let container;
@@ -297,7 +297,7 @@ class StorehouseView {
 					<p class="card-text h4">Precio: ${product.price} €</p>
 					<a href="#" class="boton__comprar btn btn-primary">Comprar</a>
 					<button id="b-close" class="btn btn-danger">Cerrar Ventana</button>
-					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}">Abrir en nueva ventana</a>
+					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}" data-cif="${cif}">Abrir en nueva ventana</a>
 					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>`;
 			}
 			if (product instanceof Music) {
@@ -312,7 +312,7 @@ class StorehouseView {
 					<p class="card-text h4">Precio: ${product.price} €</p>
 					<a href="#" class="boton__comprar btn btn-primary">Comprar</a>
 					<button id="b-close" class="btn btn-danger">Cerrar Ventana</button>
-					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}">Abrir en nueva ventana</a>
+					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}" data-cif="${cif}">Abrir en nueva ventana</a>
 					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>`;
 			}
 			if (product instanceof Monitor) {
@@ -329,7 +329,7 @@ class StorehouseView {
 					<p class="card-text h4">Precio: ${product.price} €</p>
 					<a href="#" class="boton__comprar btn btn-primary">Comprar</a>
 					<button id="b-close" class="btn btn-danger">Cerrar Ventana</button>
-					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}">Abrir en nueva ventana</a>
+					<a href="#" id="b-open" class="btn btn-primary" data-serial="${product.serial}" data-cif="${cif}">Abrir en nueva ventana</a>
 					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>`;
 			}
 
@@ -402,6 +402,9 @@ class StorehouseView {
 	showProductInNewWindow(product, instance) {
 		let main = $(this.productWindow.document).find('main');
 		main.empty();
+
+		let title = $(`<p class="h2 product__title">${this.productsTitle.text()}</p>`);
+		main.append(title);
 
 		let container;
 		console.log(product)
@@ -526,13 +529,14 @@ class StorehouseView {
 	bindShowProductInNewWindow(handler) {
 		$('#b-open').click((event) => {
 			let serial = $(event.target).closest($('a')).get(0).dataset.serial;
+			let cif = $(event.target).closest($('a')).get(0).dataset.cif;
 			if (!this.productWindow || this.productWindow.closed) {
 				this.productWindow = window.open("product.html", "ProductWindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
 				this.productWindow.addEventListener('DOMContentLoaded', () => {
-					handler(serial);
+					handler(serial, cif);
 				});
 			} else {
-				handler(serial);
+				handler(serial, cif);
 				this.productWindow.focus();
 			}
 		});
