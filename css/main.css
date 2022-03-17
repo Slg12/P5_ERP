@@ -1,10 +1,11 @@
 :root {
+  --darkOrange: #9e5e14;
   --ligthOrange: #ffd5a4;
   --ligthOrange-a: #ffd5a4ab;
+  --darkGreen: #0a4e0d;
   --ligthGreen: #e3ffe4;
   --ligthGreen-a: #e3ffe4cd;
-  --darkGreen: #0a4e0d;
-  --ctl-bgdiv: #fff;
+  --ctl-bgdiv: rgba(255, 255, 255, 0.85);
 }
 
 * {
@@ -21,7 +22,7 @@ html {
 }
 
 body {
-  background-color: #fddfdf;
+  background-color: gainsboro;
   background-image: url(../img/pastel-brick-wall.jpg);
   background-size: 300px;
 	display: grid;
@@ -34,7 +35,7 @@ body {
 }
 
 .header {
-  background-image: url("../img/libreria.jpg");
+  background-image: url(../img/libreria.jpg);
   background-size: cover;
   border-bottom: 3px solid var(--darkGreen);
   grid-area: header;
@@ -103,13 +104,23 @@ body {
 .nav__container {
 	backdrop-filter: blur(4px);
 	background-color: var(--ligthGreen-a);
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	border-top-right-radius: 5px;
-  display: none;
-  left: 0;
+	border-radius: 5px;
+	display: none;
   position: absolute;
   width: 70vw;
+}
+
+.nav__container.l-0  {
+	border-top-left-radius: 0;
+	left: 0;
+}
+
+.nav__container.l-100  {
+	left: -100px;
+}
+
+.nav__container.l-200  {
+	left: -200px;
 }
 
 .nav__container__items {
@@ -147,6 +158,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#products-title {
+	margin-top: 30px;
 }
 
 .main__store {
@@ -267,12 +282,12 @@ body {
 
 .footer__direction p,
 .footer dt {
-  color: rgb(161, 82, 16);
+  color: rgb(233, 186, 116);
 }
 
 .footer__direction span,
 .footer dd {
-  color: rgb(233, 186, 116);
+  color: rgb(253, 232, 200);
 }
 
 .footer__cc {
@@ -309,6 +324,10 @@ body {
 }
 
 @media (max-width: 991px) {
+	.nav__container {
+		left: 0 !important;
+	}
+
 	.header__name {
 		font-size: 5vw;
 	}
@@ -338,4 +357,50 @@ body {
 	padding: 10px;
 	text-align: center;
 	width: 95%;
+}
+
+/* Formulario */
+
+.form {
+  user-select: none;
+}
+
+.form__label {
+  margin-left: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+.form__controls:invalid {
+	color: gray;
+	font-weight: normal;
+}
+
+.form__controls {
+  border-radius: 5px;
+  border: 0.125em solid rgba(0, 0, 0, 0.5);
+	font-weight: bold;
+}
+
+.form__button {
+	background-color: transparent;
+  display: block;
+  cursor: pointer;
+  width: fit-content;
+  border: none;
+  padding: 12px;
+  color: var(--darkOrange);
+  font-weight: bold;
+  margin: 16px auto;
+  font-size: 16px;
+	text-decoration: none;
+}
+
+.form__button:hover {
+	color: var(--darkGreen);
+	text-decoration: underline;
+}
+
+.form__button.red:hover {
+  color: rgb(255, 38, 0);
 }

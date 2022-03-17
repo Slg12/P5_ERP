@@ -69,25 +69,25 @@ class StorehouseController {
 
 		//15 Products nuevos
 		//5 Book nuevos
-		let book1 = new Book("111-11-1111-111-1", "Biblie", 55, null, ["book1Front.jpg", "book1Reverse.jpg"], "San Pablo", "Marcos el Evangelista", "EN", "Libro Sagrado", 1);
-		let book2 = new Book("222-22-2222-222-2", "Don Quijote de la Mancha", 34.99, null, ["book2Front.jpg", "book2Reverse.jpg"], "Cátedra", "Miguel de Cerbantes", "ES", "Novela", 1);
-		let book3 = new Book("333-33-3333-333-3", "Harry Potter y el Prisionero de Azkaban", 17, null, ["book3Front.jpg"], "Salamandra", "J.K. Rowling", "ES", "Ciencia Ficción", 3);
-		let book4 = new Book("444-44-4444-444-4", "Viaje en el tiempo 5 (Geronimo Stilton)", 18.95, null, ["book4Front.jpg", "book4Reverse.jpg"], "Destino", "Elisabetta Dami", "ES", "Humor y avenura", 5);
-		let book5 = new Book("555-55-5555-555-5", "La Cocina de tu Vida", 24, null, ["book5Front.jpg"], "Planeta", "Karlos Arguiñano", "ES", "Hogar", 1);
+		let book1 = new Book("111-11-1111-111-1", "Biblie", 55, undefined, ["book1Front.jpg", "book1Reverse.jpg"], "San Pablo", "Marcos el Evangelista", "EN", "Libro Sagrado", 1);
+		let book2 = new Book("222-22-2222-222-2", "Don Quijote de la Mancha", 34.99, undefined, ["book2Front.jpg", "book2Reverse.jpg"], "Cátedra", "Miguel de Cerbantes", "ES", "Novela", 1);
+		let book3 = new Book("333-33-3333-333-3", "Harry Potter y el Prisionero de Azkaban", 17, undefined, ["book3Front.jpg"], "Salamandra", "J.K. Rowling", "ES", "Ciencia Ficción", 3);
+		let book4 = new Book("444-44-4444-444-4", "Viaje en el tiempo 5 (Geronimo Stilton)", 18.95, undefined, ["book4Front.jpg", "book4Reverse.jpg"], "Destino", "Elisabetta Dami", "ES", "Humor y avenura", 5);
+		let book5 = new Book("555-55-5555-555-5", "La Cocina de tu Vida", 24, undefined, ["book5Front.jpg"], "Planeta", "Karlos Arguiñano", "ES", "Hogar", 1);
 
 		//5 Music nuevos
-		let music1 = new Music("Mc-1", "Wrecked", 3, null, ["disk1Front.jpg"], "Imagine Dragons", "Indie", "4:04", new Date());
-		let music2 = new Music("Mc-2", "Rime of the Ancient Mariner", 2.5, null, ["disk2Front.jpg"], "Iron Maiden", "Heavy Metal", "13:38", new Date());
-		let music3 = new Music("Mc-3", "Pigstep", 2, null, ["disk3Front.jpg", "disk3.jpg"], "Lena Raine", "Electronica", "2:29", new Date());
-		let music4 = new Music("Mc-4", "Fiddler on the Green", 1.5, null, ["disk4Front.jpg"], "Demons & Wizards", "Metal progresivo", "5:56", new Date());
-		let music5 = new Music("Mc-5", "Stressed Out", 3.5, null, ["disk5Front.jpg"], "Twenty One Pilots", "Hip-Hop/Rap", "3:22", new Date());
+		let music1 = new Music("Mc-1", "Wrecked", 3, undefined, ["disk1Front.jpg"], "Imagine Dragons", "Indie", "4:04", new Date());
+		let music2 = new Music("Mc-2", "Rime of the Ancient Mariner", 2.5, undefined, ["disk2Front.jpg"], "Iron Maiden", "Heavy Metal", "13:38", new Date());
+		let music3 = new Music("Mc-3", "Pigstep", 2, undefined, ["disk3Front.jpg", "disk3.jpg"], "Lena Raine", "Electronica", "2:29", new Date());
+		let music4 = new Music("Mc-4", "Fiddler on the Green", 1.5, undefined, ["disk4Front.jpg"], "Demons & Wizards", "Metal progresivo", "5:56", new Date());
+		let music5 = new Music("Mc-5", "Stressed Out", 3.5, undefined, ["disk5Front.jpg"], "Twenty One Pilots", "Hip-Hop/Rap", "3:22", new Date());
 
 		//5 Monitor nuevos
-		let monitor1 = new Monitor("Mtr-1", "Lenovo D24-20", 119.99, null, ["monitor1.jpg", "monitor1Inputs.jpg"], "Lenovo", "75Hz", '23.8"', "Negro", ["HDMI", "VGA"], "Flat");
-		let monitor2 = new Monitor("Mtr-2", "MSI Optix MAG272CQR", 399, null, ["monitor2.jpg"], "MSI", "165Hz", '27"', "Negro", ["DP", "HDMI"], "Curved");
-		let monitor3 = new Monitor("Mtr-3", "Xiaomi Mi GL WQHD", 490, null, ["monitor3.jpg"], "Xiaomi", "144Hz", '34"', "Negro", ["DP", "HDMI"], "Curved");
-		let monitor4 = new Monitor("Mtr-4", "LG 29WN600-W", 245, null, ["monitor4.jpg"], "LG", "75Hz", '29"', "Gris", ["DP", "HDMI"], "Flat");
-		let monitor5 = new Monitor("Mtr-5", "Odyssey G9", 1499, null, ["monitor5.jpg", "monitor5Inputs.jpg"], "Samsung", "240Hz", '49"', "Negro", ["HDMI"], "Curved");
+		let monitor1 = new Monitor("Mtr-1", "Lenovo D24-20", 119.99, undefined, ["monitor1.jpg", "monitor1Inputs.jpg"], "Lenovo", "75Hz", '23.8"', "Negro", ["HDMI", "VGA"], "Flat");
+		let monitor2 = new Monitor("Mtr-2", "MSI Optix MAG272CQR", 399, undefined, ["monitor2.jpg"], "MSI", "165Hz", '27"', "Negro", ["DP", "HDMI"], "Curved");
+		let monitor3 = new Monitor("Mtr-3", "Xiaomi Mi GL WQHD", 490, undefined, ["monitor3.jpg"], "Xiaomi", "144Hz", '34"', "Negro", ["DP", "HDMI"], "Curved");
+		let monitor4 = new Monitor("Mtr-4", "LG 29WN600-W", 245, undefined, ["monitor4.jpg"], "LG", "75Hz", '29"', "Gris", ["DP", "HDMI"], "Flat");
+		let monitor5 = new Monitor("Mtr-5", "Odyssey G9", 1499, undefined, ["monitor5.jpg", "monitor5Inputs.jpg"], "Samsung", "240Hz", '49"', "Negro", ["HDMI"], "Curved");
 
 		storeHouse.addProduct(book1, category1, category4, category5);
 		storeHouse.addProduct(book2, category1, category4, category5, category10);
@@ -164,17 +164,20 @@ class StorehouseController {
 		this.onInit();
 
 		this.#storehouseView.bindInit(this.handleInit);
-		this.#storehouseView.bindProductsTypeList(this.handleProductsTypeList);
-		this.#storehouseView.bindProductsCategoryList(this.handleProductsCategoryList);
-		this.#storehouseView.bindProductsStoreList(this.handleProductsStoreList);
 	}
 
 	onLoad = () => {
 		this.#loadStorehouseObjects();
 		this.#storehouseView.rename(this.#storehouse.name);
+		this.handleNewStoreForm();
+		this.handleNewProductForm();
+		this.handleNewCategoryForm();
+		this.handleAddStockForm();
 		this.onAddStore();
-		this.onAddCategory();
 		this.onAddProduct();
+		this.onAddCategory();
+		this.onAddAdmin();
+		this.onAddStock();
 	}
 
 	onInit = () => {
@@ -187,14 +190,31 @@ class StorehouseController {
 
 	onAddStore = () => {
 		this.#storehouseView.showStores(this.#storehouse.getStores());
+		this.#storehouseView.bindProductsStoreList(this.handleProductsStoreList);
+		this.handleRemoveStoreForm();
+		this.handleStockForm();
 	}
 
 	onAddCategory = () => {
 		this.#storehouseView.showCategoriesInMenu(this.#storehouse.getCategories());
+		this.#storehouseView.bindProductsCategoryList(this.handleProductsCategoryList);
+		this.handleRemoveCategoryForm();
+		this.handleNewProductForm();
 	}
 
 	onAddProduct = () => {
 		this.#storehouseView.showProductsInMenu("Libro", "Música", "Monitor");
+		this.#storehouseView.bindProductsTypeList(this.handleProductsTypeList);
+		this.handleRemoveProductForm();
+		this.handleStockForm();
+	}
+
+	onAddStock = () => {
+		this.handleStockForm();
+	}
+
+	onAddAdmin = () => {
+		this.#storehouseView.showAdminInMenu();
 	}
 
 	handleProductsCategoryList = (title) => {
@@ -245,16 +265,210 @@ class StorehouseController {
 		}
 	}
 
-	handleShowProductInNewWindow = (serial, cif) => {
+	handleShowProductInNewWindow = (serial, cif, position) => {
 		try {
 			let store = cif == "false" ? false : this.#storehouse.getStore(cif);
 			let product = this.#storehouse.getProduct(serial, store);
 
-			this.#storehouseView.showProductInNewWindow(product, this.#instance++);
+			this.#storehouseView.showProductInNewWindow(product, this.#instance++, position);
 		} catch (error) {
 			this.#storehouseView.showProductInNewWindow(null, 'No existe este producto en la página.');
 		}
 	}
+
+	handleNewStoreForm = () => {
+		this.#storehouseView.showStoreFroms();
+		this.#storehouseView.bindNewStoreForm(this.handleCreateStore);
+	}
+
+	handleCreateStore = (cif, name, address, phone, latitude, longitude) => {
+		let coords = new Coords(latitude, longitude);
+		let store;
+		let done, error;
+
+		try {
+			store = new Store(cif, name, address, phone, coords);
+			done = true;
+			try {
+				this.#storehouse.addStore(store);
+				done = true;
+				this.onAddStore();
+			} catch (exception) {
+				done = false;
+				error = exception;
+			}
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showNewStoreModal(done, store, error);
+	}
+
+	handleRemoveStoreForm = () => {
+		this.#storehouseView.showRemoveStoreForm(this.#storehouse.getStores());
+		this.#storehouseView.bindRemoveStoreForm(this.handleDeleteStore);
+	}
+
+	handleDeleteStore = (cif) => {
+		let store = this.#storehouse.getStore(cif);
+		let done, error;
+
+		try {
+			this.#storehouse.removeStore(store.store);
+			done = true;
+			this.onAddStore();
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showRemoveStoreModal(done, cif, error);
+	}
+
+	handleNewProductForm = () => {
+		this.#storehouseView.showProductFroms(this.#storehouse.getCategories());
+		this.#storehouseView.bindNewProductForm(this.handleCreateProduct);
+	}
+
+	handleCreateProduct = (type, serial, name, price, tax, images, categoriesName, ...args) => {
+		let product;
+		let done, error;
+
+		try {
+			if (type === "Book") product = new Book(serial, name, price, tax, images, args[0], args[1], args[2], args[3], args[4]);
+			else if (type === "Music") product = new Music(serial, name, price, tax, images, args[0], args[1], args[2]);
+			else if (type === "Monitor") product = new Monitor(serial, name, price, tax, images, args[0], args[1], args[2], args[3], args[4]);
+
+			let categories = [];
+			for (let name of categoriesName) {
+				categories.push(this.#storehouse.getCategory(name));
+			}
+			done = true;
+			try {
+				this.#storehouse.addProduct(product, categories);
+				done = true;
+				this.onAddProduct();
+			} catch (exception) {
+				done = false;
+				error = exception;
+			}
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showNewProductModal(done, serial, error);
+	}
+
+	handleRemoveProductForm = () => {
+		this.#storehouseView.showRemoveProductForm(this.#storehouse.getProducts());
+		this.#storehouseView.bindRemoveProductForm(this.handleDeleteProduct);
+	}
+
+	handleDeleteProduct = (serial) => {
+		let product = this.#storehouse.getProduct(serial);
+		let done, error;
+
+		try {
+			this.#storehouse.removeProduct(product.product);
+			done = true;
+			this.onAddProduct();
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showRemoveProductModal(done, serial, error);
+	}
+
+	handleNewCategoryForm = () => {
+		this.#storehouseView.showCategoryFroms();
+		this.#storehouseView.bindNewCategoryForm(this.handleCreateCategory);
+	}
+
+	handleCreateCategory = (title) => {
+		let category;
+		let done, error;
+
+		try {
+			category = new Category(title);
+			done = true;
+			try {
+				this.#storehouse.addCategory(category);
+				done = true;
+				this.onAddCategory();
+			} catch (exception) {
+				done = false;
+				error = exception;
+			}
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showNewCategoryModal(done, title, error);
+	}
+
+	handleRemoveCategoryForm = () => {
+		this.#storehouseView.showRemoveCategoryForm(this.#storehouse.getCategories());
+		this.#storehouseView.bindRemoveCategoryForm(this.handleDeleteCategory);
+	}
+
+	handleDeleteCategory = (title) => {
+		let category = this.#storehouse.getCategory(title);
+		let done, error;
+
+		try {
+			this.#storehouse.removeCategory(category);
+			done = true;
+			this.onAddCategory();
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showRemoveCategoryModal(done, title, error);
+	}
+
+	handleAddStockForm = () => {
+		this.#storehouseView.showStockFroms();
+		this.#storehouseView.bindAddStockForm(this.handleCreateStock);
+	}
+
+	handleCreateStock = (serial, cif, stock) => {
+		let product, store, type;
+		let isExist = false;
+		let done, error;
+
+		try {
+			product = this.#storehouse.getProduct(serial);
+			store = this.#storehouse.getStore(cif);
+			product = product.product;
+			store = store.store;
+
+			if (product instanceof Book) type = Book;
+			if (product instanceof Music) type = Music;
+			if (product instanceof Monitor) type = Monitor;
+
+			for (let productStore of this.#storehouse.getStoreProducts(store, type)) {
+				productStore = productStore.product;
+				if (productStore.serial == serial) isExist = true;
+			}
+
+			isExist
+				? this.#storehouse.addQuantityProductInStore(product, store, stock)
+				: this.#storehouse.addProductInStore(product, store, stock);
+
+			this.onAddStock();
+			done = true;
+
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showAddStockModal(done, isExist ? "han añadido" : "han creado", store.name, product.name, stock, error);
+	}
+
+	handleStockForm = () => {
+		this.#storehouseView.showStockStoreForm(this.#storehouse.getStores());
+		this.#storehouseView.showStockProductForm(this.#storehouse.getProducts());
+	}
+
 }
 
 export default StorehouseController;

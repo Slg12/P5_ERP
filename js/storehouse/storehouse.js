@@ -86,8 +86,9 @@ class StoreExistException extends BaseException {
 
 class StoreNotExistException extends BaseException {
 	constructor(store, fileName, lineNumber) {
+		if (store instanceof Store) store = store.cif;
 		super(
-			"Error: The store doesn't exist in the store house. " + store.name,
+			"Error: The store doesn't exist in the store house. " + store,
 			fileName,
 			lineNumber
 		);
@@ -505,6 +506,8 @@ let StoreHouse = (function () {
 					throw InvalidValueException("product", product);
 				if (this.#findProduct(product, this.#_products) !== false)
 					throw new ProductExistException(product);
+
+				if (Array.isArray(categories[0])) categories = categories[0];
 
 				//Set por si repite la categoría
 				let arrayCategories = new Set();

@@ -14,7 +14,7 @@ class Product {
   #price;
   #tax;
   #images;
-  constructor(serial, name, price, tax = Product.IVA, images = []) {
+  constructor(serial, name, price, tax = Product.IVA, images = ['Default.png']) {
     //La función se invoca con el operador new
     if (!new.target) throw new InvalidAccessConstructorException();
 
@@ -116,11 +116,11 @@ class Book extends Product {
     serial,
     name,
     price,
-    tax,
-    images,
-    editorial,
+    tax = Product.IVA,
+    images = ['Default.png'],
+    editorial = "unknown",
     author = "unknown",
-    lenguage,
+    lenguage = "ES",
     genre = "unknown",
     volume = 1
   ) {
@@ -132,7 +132,7 @@ class Book extends Product {
       throw new InvalidValueException("serial: ISBN", serial);
 
     //Llamada al superconstructor.
-    super(serial, name, price, tax = Product.IVA, images);
+    super(serial, name, price, tax, images);
 
     //Validación de argumentos
     if (!editorial) throw new EmptyValueException("editorial");
@@ -224,18 +224,18 @@ class Music extends Product {
     serial,
     name,
     price,
-    tax,
-    images,
-    band,
+    tax = Product.IVA,
+    images = ['Default.png'],
+    band = "unknown",
     genre = "unknown",
-    length,
+    length = "0:00",
     date = new Date()
   ) {
     //La función se invoca con el operador new
     if (!new.target) throw new InvalidAccessConstructorException();
 
     //Llamada al superconstructor.
-    super(serial, name, price, tax = Product.IVA, images);
+    super(serial, name, price, tax, images);
 
     //Validación de argumentos
     if (!band) throw new EmptyValueException("band");
@@ -315,20 +315,20 @@ class Monitor extends Product {
     serial,
     name,
     price,
-    tax,
-    images,
+    tax = Product.IVA,
+    images = ['Default.png'],
     brand = "none",
-    refreshRate,
-    size,
+    refreshRate = "00Hz",
+    size = '00"',
     color = "none",
-    inputType = [],
-    screenType
+    inputType = ["HDMI"],
+    screenType = "Flat"
   ) {
     //La función se invoca con el operador new
     if (!new.target) throw new InvalidAccessConstructorException();
 
     //Llamada al superconstructor.
-    super(serial, name, price, tax = Product.IVA, images);
+    super(serial, name, price, tax, images);
 
     //Validación de argumentos
     if (!brand) throw new EmptyValueException("brand");
