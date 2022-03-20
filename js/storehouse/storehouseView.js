@@ -55,7 +55,6 @@ class StorehouseView {
 		this.singleProduct = $("#single-product");
 		this.products = $("#products");
 		this.categories = $("#categories");
-		this.admin = $("#admin");
 		this.menu = $(".navbar-nav");
 		this.productWindow = [];
 	}
@@ -147,34 +146,33 @@ class StorehouseView {
 	}
 
 	showAdminInMenu() {
-		this.admin.empty();
-		this.admin.append(
-			`<div class="p-3">
-				<h3 class="text-center">Categorias</h3>
-				<a id="lnewCategory" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createCategory" href="#products-title">Crear Categoria</a>
-				<a id="ldelCategory" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeCategory" href="#products-title">Borrar Categoria</a>
-			</div>`
-		);
-		this.admin.append(
-			`<div class="p-3">
-				<h3 class="text-center">Productos</h3>
-				<a id="lnewProduct" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createProduct" href="#products-title">Crear Producto</a>
-				<a id="ldelProduct" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeProduct" href="#products-title">Borrar Producto</a>
-			</div>`
-		);
-		this.admin.append(
-			`<div class="p-3">
-				<h3 class="text-center">Tiendas</h3>
-				<a id="lnewStore" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createStore" href="#products-title">Crear Tienda</a>
-				<a id="ldelStore" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeStore" href="#products-title">Borrar Tienda</a>
-			</div>`
-		);
-		this.admin.append(
-			`<div class="p-3">
-				<h3 class="text-center">Gestión Stock</h3>
-				<a id="lnewStock" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#addStock" href="#products-title">Añadir Stock</a>
-			</div>`
-		);
+		$('#mialmacen-links').append(
+			`<li class="nav__item dropdown" id="admin-tools">
+				<a class="nav-link" aria-current="page" href="#">Administración</a>
+				<div class="nav__container l-200">
+					<div class="nav__container__items" id="admin">
+						<div class="p-3">
+							<h3 class="text-center">Categorias</h3>
+							<a id="lnewCategory" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createCategory" href="#products-title">Crear Categoria</a>
+							<a id="ldelCategory" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeCategory" href="#products-title">Borrar Categoria</a>
+						</div>
+						<div class="p-3">
+							<h3 class="text-center">Productos</h3>
+							<a id="lnewProduct" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createProduct" href="#products-title">Crear Producto</a>
+							<a id="ldelProduct" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeProduct" href="#products-title">Borrar Producto</a>
+						</div>
+						<div class="p-3">
+							<h3 class="text-center">Tiendas</h3>
+							<a id="lnewStore" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#createStore" href="#products-title">Crear Tienda</a>
+							<a id="ldelStore" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeStore" href="#products-title">Borrar Tienda</a>
+						</div>
+						<div class="p-3">
+							<h3 class="text-center">Gestión Stock</h3>
+							<a id="lnewStock" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#addStock" href="#products-title">Añadir Stock</a>
+						</div>
+					</div>
+				</div>
+			</li>`);
 	}
 
 	showStoreFroms() {
@@ -276,7 +274,7 @@ class StorehouseView {
 		removeStoreValidation(handler);
 	}
 
-	showProductFroms(categories) {
+	showProductFroms() {
 		let createProductForm = $(
 			`<div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="createProductLabel">
 				<div class="modal-dialog modal-dialog-centered">
@@ -524,19 +522,6 @@ class StorehouseView {
 			Default: '<p class="text-muted text-center">Seleciona el tipo de producto</p>'
 		};
 
-		let checkCategories = "";
-		let i = 0;
-
-		for (let category of categories) {
-			if (category.title != 'Default')
-				checkCategories +=
-					`<div class="w-25">
-						<input type="checkbox" class="form-check-input" id="fcpCategory${i}" value="${category.title}">
-						<label for="fcpCategory${i++}">${category.title}</label>
-					</div>
-					`;
-		}
-
 		let removeProductForm = $(
 			`<div class="modal fade" id="removeProduct" tabindex="-1" aria-labelledby="removeProductLabel">
 				<div class="modal-dialog modal-dialog-centered">
@@ -564,15 +549,35 @@ class StorehouseView {
 		$('#fcpType').change(function () {
 			$('#typeOfProduct').empty();
 			$('#typeOfProduct').append(typeProductForm[this.value]);
-			if (this.value != 'Default')
+			if (this.value != 'Default') {
 				$('#typeOfProduct').append(
 					`<span class="h5">Categorías:</span>
-					<div class="mt-0 d-flex flex-wrap" id="checkCategories">
-						${checkCategories}
-					</div>
-				`);
+					<div class="mt-0 d-flex flex-wrap" id="checkCategories"></div>`);
+			}
 		});
 
+	}
+
+	showCreateProductForm(categories) {
+		let checkCategories = "";
+		let i = 0;
+
+		for (let category of categories) {
+			if (category.title != 'Default')
+				checkCategories +=
+					`<div class="w-25">
+						<input type="checkbox" class="form-check-input" id="fcpCategory${i}" value="${category.title}">
+						<label for="fcpCategory${i++}">${category.title}</label>
+					</div>
+					`;
+		}
+
+		$('#fcpType').change(function () {
+			if (this.value != 'Default') {
+				$('#checkCategories').empty();
+				$('#checkCategories').append(checkCategories);
+			}
+		});
 	}
 
 	bindNewProductForm(handler) {
@@ -1416,6 +1421,168 @@ class StorehouseView {
 				}
 			}
 		});
+	}
+
+	showCookiesMessage() {
+		let layer = $(
+			`<div class="fixed-bottom">
+				<div id="cookiesMessage" class="toast show w-100" role="alert" data-autohide="false">
+					<div class="toast-body p-4 d-flex flex-column m-0">
+						<h4>Aviso de cookies <img class="cookie" src="img/cookies.png" /></h4>
+						<p>Este sitio web almacena datos en cookies para su funcionalidad, entre las que se encuentra datos analíticos y personalización. Para poder utilizar este sitio, estás automáticamente aceptando que utilizamos cookies.</p>
+						<div class="ml-auto">
+							<button type="button" class="btn btn-warning deny" id="btnDeny">Denegar</button>
+							<button type="button" class="btn btn-primary" id="btnAccept">Aceptar</button>
+						</div>
+					</div>
+				</div>
+			</div>`);
+		this.main.append(layer);
+		$('#btnDeny').click(() => {
+			$('.toast').toast('hide');
+			this.main.empty();
+			this.main.css({
+				background: "transparent"
+			})
+			this.main.append(
+				`<div class="text-warning p-4 bg-dark rounded" role="alert">
+					<strong>Es necesario aceptar el uso de cookies para seguir navegando. Recarga la página y acepta los terminos y condiciones. Gracias.</strong>
+				</div>`);
+			this.menu.remove();
+		})
+
+		$('#btnAccept').click(() => {
+			setCookie('mialmacenSLGCookies', 'true', 1);
+			$('.toast').toast('hide');
+		})
+	}
+
+	showIdentificationLink() {
+		let userIdentity = $('#user-identity');
+		userIdentity.empty();
+		userIdentity.append(`<a id="login" class="nav-link" data-bs-toggle="modal" data-bs-target="#userLogIn" href="#products-title">Iniciar Sesión</a>`);
+	}
+
+	bindIdentificationLink(handler) {
+		handler();
+	}
+
+	showLogin() {
+		let userForm = $(
+			`<div class="modal fade" id="userLogIn" tabindex="-1" aria-labelledby="userLogInLabel">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="userLogInLabel">Borrar Tienda</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form class="form row g-3" name="fUserLogIn" id="fUserLogIn" role="form" novalidate>
+								<div class="form-floating col-md-12">
+									<input type="text" name="fulUsername" class="form-control form__controls" placeholder="Usuario">
+									<label class="form__label" for="fulUsername">Usuario*</label>
+								</div>
+								<div class="form-floating col-md-12" id="feuErrorMessage">
+									<input type="password" name="fulPassword" class="form-control form__controls" placeholder="Usuario">
+									<label class="form__label" for="fulPassword">Contraseña*</label>
+								</div>
+								<div class="form col-md-12">
+								<input name="fulRemember" type="checkbox" class="form-check-input" id="customControlInline">
+								<label class="fw-bold" for="customControlInline">Recuerdame</label>
+								</div>
+								<button class="form__button col-md-12" type="submit">Acceder</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>`);
+
+		this.main.append(userForm);
+	}
+
+	bindLogin(handler) {
+		let form = document.forms.fUserLogIn;
+		$(form).submit((event) => {
+			handler(form.fulUsername.value, form.fulPassword.value, form.fulRemember.checked);
+			event.preventDefault();
+		})
+	}
+
+	showInvalidUserMessage() {
+		let message = `<p class="m-0 text-danger" id="feuError">Usuario o Contraseña incorrectos</p>`
+		$('#feuErrorMessage').append(message);
+		setTimeout(() => {
+			$('#feuError').remove();
+		}, 4000);
+	}
+
+	hideUserLogIn() {
+		$('#userLogIn').modal('hide');
+		$('#userLogIn').remove();
+	}
+
+	showAuthUserProfile(user) {
+		$('#user-identity').empty();
+		$('#user-identity').append(
+			`<div class="account d-flex m-auto">
+				<img class="user-image" src="img/user.png" alt="user">
+				<sapn class="align-self-center">&nbsp;${user.username}</sapn>
+			</div>
+			<a id="logout" class="nav-link" href="#">Cerrar sesión</a>`);
+	}
+
+	showValidUserMessage(user) {
+		let modal = $(
+			`<div class="modal fade" id="authUserMessageModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="authUserMessageModal" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="newCategoryModalLabel">Usuario autenticado</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							Bienvendio <strong>${user.username}</strong>. Tus credenciales son correctas.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+						</div>
+					</div>
+				</div>
+			</div>`);
+		this.main.append(modal);
+		let authUserMessageModal = $('#authUserMessageModal');
+		setTimeout(() => {
+			authUserMessageModal.modal('show');
+			authUserMessageModal.find('button').click(() => {
+				authUserMessageModal.on('hidden.bs.modal', function (event) {
+					this.remove();
+				});
+				authUserMessageModal.modal('hide');
+			})
+		}, 100);
+	}
+
+	initHistory() {
+		history.replaceState({ action: 'init' }, null);
+	}
+
+	setUserCookie(user) {
+		setCookie('mialmacenSLGActiveUser', user.username, 1);
+	}
+
+	deleteUserCookie() {
+		setCookie('mialmacenSLGActiveUser', '', 0);
+	}
+
+	bindCloseSession(handler) {
+		$('#logout').click((event) => {
+			handler();
+			event.preventDefault();
+		})
+	}
+
+	removeAdminMenu() {
+		$('#admin-tools').remove();
 	}
 }
 

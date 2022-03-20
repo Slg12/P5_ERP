@@ -325,6 +325,7 @@ body {
 
 @media (max-width: 991px) {
 	.nav__container {
+		border-top-left-radius: 0 !important;
 		left: 0 !important;
 	}
 
@@ -403,4 +404,28 @@ body {
 
 .form__button.red:hover {
   color: rgb(255, 38, 0);
+}
+
+.toast {
+	background-color: #e3ffe4e0;
+	border: none;
+	background-clip: none;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.cookie {
+	width: 25px;
+}
+
+#login, #logout {
+	width: max-content;
+	padding: 10px;
+}
+
+.user-image {
+	border-radius: 50%;
+	border: 2px solid #212529;
+	width: 40px;
+	height: 40px;
 }

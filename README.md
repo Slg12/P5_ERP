@@ -40,3 +40,6 @@ V4:
 - Formulario para añadir Stock y o productos a tiendas
 - Nuevo funcionamiento de la ventana de productos, ahora se creará una por cada producto, se actualizará la ventana dependiendo de la procedencia de este, el boton de Cerrar de cada ventana es individual, en cambio el boton Cerrar Ventanas de la pagina principal cerrará todas ventanas creadas.
 
+V5:
+- Usuario admin necesario para acceder a la administración
+- Cookies

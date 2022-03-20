@@ -27,6 +27,8 @@ class StorehouseController {
 	#storehouse;
 	#storehouseView;
 	#instance = 0;
+	#auth;
+	#user;
 
 	#loadStorehouseObjects() {
 		let storeHouse = this.#storehouse;
@@ -156,9 +158,11 @@ class StorehouseController {
 		storeHouse.addProductInStore(monitor5, store5);
 	}
 
-	constructor(model, view) {
+	constructor(model, view, auth) {
 		this.#storehouse = model;
 		this.#storehouseView = view;
+		this.#auth = auth;
+		this.#user = null;
 
 		this.onLoad();
 		this.onInit();
@@ -169,15 +173,23 @@ class StorehouseController {
 	onLoad = () => {
 		this.#loadStorehouseObjects();
 		this.#storehouseView.rename(this.#storehouse.name);
-		this.handleNewStoreForm();
-		this.handleNewProductForm();
-		this.handleNewCategoryForm();
-		this.handleAddStockForm();
 		this.onAddStore();
 		this.onAddProduct();
 		this.onAddCategory();
-		this.onAddAdmin();
-		this.onAddStock();
+
+		if (getCookie('mialmacenSLGCookies') !== 'true') {
+			this.#storehouseView.showCookiesMessage();
+		}
+		let userCookie = getCookie('mialmacenSLGActiveUser');
+		if (userCookie) {
+			let user = this.#auth.getUser(userCookie);
+			if (user) {
+				this.#user = this.#auth.getUser(userCookie);
+				this.onOpenSession(false);
+			}
+		} else {
+			this.onCloseSession();
+		}
 	}
 
 	onInit = () => {
@@ -191,6 +203,10 @@ class StorehouseController {
 	onAddStore = () => {
 		this.#storehouseView.showStores(this.#storehouse.getStores());
 		this.#storehouseView.bindProductsStoreList(this.handleProductsStoreList);
+	}
+
+	onAddStoreForm = () => {
+		this.onAddStore();
 		this.handleRemoveStoreForm();
 		this.handleStockForm();
 	}
@@ -198,6 +214,10 @@ class StorehouseController {
 	onAddCategory = () => {
 		this.#storehouseView.showCategoriesInMenu(this.#storehouse.getCategories());
 		this.#storehouseView.bindProductsCategoryList(this.handleProductsCategoryList);
+	}
+
+	onAddCategoryForm = () => {
+		this.onAddCategory();
 		this.handleRemoveCategoryForm();
 		this.handleNewProductForm();
 	}
@@ -205,15 +225,19 @@ class StorehouseController {
 	onAddProduct = () => {
 		this.#storehouseView.showProductsInMenu("Libro", "Música", "Monitor");
 		this.#storehouseView.bindProductsTypeList(this.handleProductsTypeList);
+	}
+
+	onAddProductForm = () => {
+		this.onAddProduct();
 		this.handleRemoveProductForm();
 		this.handleStockForm();
 	}
 
-	onAddStock = () => {
+	onAddStockForm = () => {
 		this.handleStockForm();
 	}
 
-	onAddAdmin = () => {
+	onAddAdminForm = () => {
 		this.#storehouseView.showAdminInMenu();
 	}
 
@@ -292,7 +316,7 @@ class StorehouseController {
 			try {
 				this.#storehouse.addStore(store);
 				done = true;
-				this.onAddStore();
+				this.onAddStoreForm();
 			} catch (exception) {
 				done = false;
 				error = exception;
@@ -316,7 +340,7 @@ class StorehouseController {
 		try {
 			this.#storehouse.removeStore(store.store);
 			done = true;
-			this.onAddStore();
+			this.onAddStoreForm();
 		} catch (exception) {
 			done = false;
 			error = exception;
@@ -325,7 +349,7 @@ class StorehouseController {
 	}
 
 	handleNewProductForm = () => {
-		this.#storehouseView.showProductFroms(this.#storehouse.getCategories());
+		this.#storehouseView.showCreateProductForm(this.#storehouse.getCategories());
 		this.#storehouseView.bindNewProductForm(this.handleCreateProduct);
 	}
 
@@ -346,7 +370,7 @@ class StorehouseController {
 			try {
 				this.#storehouse.addProduct(product, categories);
 				done = true;
-				this.onAddProduct();
+				this.onAddProductForm();
 			} catch (exception) {
 				done = false;
 				error = exception;
@@ -370,7 +394,7 @@ class StorehouseController {
 		try {
 			this.#storehouse.removeProduct(product.product);
 			done = true;
-			this.onAddProduct();
+			this.onAddProductForm();
 		} catch (exception) {
 			done = false;
 			error = exception;
@@ -393,7 +417,7 @@ class StorehouseController {
 			try {
 				this.#storehouse.addCategory(category);
 				done = true;
-				this.onAddCategory();
+				this.onAddCategoryForm();
 			} catch (exception) {
 				done = false;
 				error = exception;
@@ -417,7 +441,7 @@ class StorehouseController {
 		try {
 			this.#storehouse.removeCategory(category);
 			done = true;
-			this.onAddCategory();
+			this.onAddCategoryForm();
 		} catch (exception) {
 			done = false;
 			error = exception;
@@ -454,7 +478,7 @@ class StorehouseController {
 				? this.#storehouse.addQuantityProductInStore(product, store, stock)
 				: this.#storehouse.addProductInStore(product, store, stock);
 
-			this.onAddStock();
+			this.onAddStockForm();
 			done = true;
 
 		} catch (exception) {
@@ -467,6 +491,54 @@ class StorehouseController {
 	handleStockForm = () => {
 		this.#storehouseView.showStockStoreForm(this.#storehouse.getStores());
 		this.#storehouseView.showStockProductForm(this.#storehouse.getProducts());
+	}
+
+	handleLoginForm = () => {
+		this.#storehouseView.showLogin();
+		this.#storehouseView.bindLogin(this.handleLogin);
+	}
+
+	handleLogin = (username, password, remember) => {
+		if (this.#auth.validateUser(username, password)){
+			this.#user = this.#auth.getUser(username);
+			this.onOpenSession(true);
+			this.onInit();
+			if (remember) {
+				this.#storehouseView.setUserCookie(this.#user);
+			}
+		} else {
+			this.#storehouseView.showInvalidUserMessage();
+		}
+	}
+
+	onOpenSession(isNewSession){
+		this.handleNewStoreForm();
+		this.#storehouseView.showProductFroms();
+		this.handleNewCategoryForm();
+		this.handleAddStockForm();
+		this.onAddStoreForm();
+		this.onAddProductForm();
+		this.onAddCategoryForm();
+		this.onAddStockForm();
+		this.onAddAdminForm();
+		if (isNewSession)
+			this.#storehouseView.hideUserLogIn();
+		this.#storehouseView.showAuthUserProfile(this.#user);
+		this.#storehouseView.showValidUserMessage(this.#user, isNewSession);
+		this.#storehouseView.bindCloseSession(this.handleCloseSession);
+		this.#storehouseView.initHistory();
+	}
+
+	onCloseSession(){
+		this.#user = null;
+		this.#storehouseView.deleteUserCookie();
+		this.#storehouseView.showIdentificationLink();
+		this.#storehouseView.bindIdentificationLink(this.handleLoginForm);
+		this.#storehouseView.removeAdminMenu();
+	}
+
+	handleCloseSession = () => {
+		this.onCloseSession();
 	}
 
 }
