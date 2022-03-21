@@ -565,6 +565,14 @@ function newCategoryValidation(handler) {
 		let isValid = true;
 		let firstInvalidElement = null;
 
+		if (!this.fccDesc.checkValidity()) {
+			isValid = false;
+			showFeedBack($(this.fccDesc), false);
+			firstInvalidElement = this.fccDesc;
+		} else {
+			showFeedBack($(this.fccDesc), true);
+		}
+
 		if (!this.fccTitle.checkValidity()) {
 			isValid = false;
 			showFeedBack($(this.fccTitle), false);
@@ -577,7 +585,8 @@ function newCategoryValidation(handler) {
 			firstInvalidElement.focus();
 		} else {
 			handler(
-				this.fccTitle.value
+				this.fccTitle.value,
+				this.fccDesc.value == "" ? undefined : this.fccDesc.value
 			);
 		}
 		event.preventDefault();
@@ -594,6 +603,7 @@ function newCategoryValidation(handler) {
 	});
 
 	$(form.fccTitle).change(defaultCheckElement);
+	$(form.fccDesc).change(defaultCheckElement);
 }
 
 function removeCategoryValidation(handler) {
@@ -683,6 +693,55 @@ function addStockValidation(handler) {
 	$(form.fasStore).change(defaultCheckElement);
 }
 
+function removeStockValidation(handler) {
+	let form = document.forms.fRemStock;
+	$(form).attr("novalidate", true);
+
+	$(form).submit(function (event) {
+		let isValid = true;
+		let firstInvalidElement = null;
+
+		if (this.frstStore.value === "") {
+			isValid = false;
+			showFeedBack($(this.frstStore), false);
+			firstInvalidElement = this.frstStore;
+		} else {
+			showFeedBack($(this.frstStore), true);
+		}
+
+		if (this.frstProduct.value === "") {
+			isValid = false;
+			showFeedBack($(this.frstProduct), false);
+			firstInvalidElement = this.frstProduct;
+		} else {
+			showFeedBack($(this.frstProduct), true);
+		}
+
+		if (!isValid) {
+			firstInvalidElement.focus();
+		} else {
+			handler(
+				this.frstProduct.value,
+				this.frstStore.value
+			);
+		}
+		event.preventDefault();
+		event.stopPropagation();
+	});
+
+	form.addEventListener("reset", function (event) {
+		let feedDivs = $(this).find("div.valid-feedback, div.invalid-feedback");
+		feedDivs.removeClass("d-block").addClass("d-none");
+		let inputs = $(this).find("input");
+		inputs.removeClass("is-valid is-invalid");
+		let selects = $(this).find("select");
+		selects.removeClass("is-valid is-invalid");
+	});
+
+	$(form.frstProduct).change(defaultCheckElement);
+	$(form.frstStock).change(defaultCheckElement);
+}
+
 export {
 	newStoreValidation,
 	removeStoreValidation,
@@ -690,5 +749,6 @@ export {
 	removeProductValidation,
 	newCategoryValidation,
 	removeCategoryValidation,
-	addStockValidation
+	addStockValidation,
+	removeStockValidation
 };

@@ -636,6 +636,24 @@ let StoreHouse = (function () {
 				this.#_stores.splice(index, 1);
 				return this.#_stores.length;
 			}
+
+			/**
+			 * Borrar un Product de una Store
+			 * @param {*} store  Store a buscar
+			 * @param {*} product Product a borrar
+			 * @returns tamaño del array
+			 */
+			removeProductStore(store, product) {
+				if (!(store instanceof Store))
+					throw InvalidValueException("store", store);
+				let indexStore = this.#findStore(store);
+				if (indexStore === false) throw new StoreNotExistException(store);
+				let indexProd = this.#findProduct(product, this.#_stores[indexStore].products);
+				if (indexProd === false) throw new ProductNotExistException(product);
+
+				this.#_stores[indexStore].products.splice(indexProd, 1);
+				return this.#_stores[indexStore].products.length;
+			}
 		}
 		Object.defineProperty(StoreHouse.prototype, "name", { enumerable: true });
 		Object.defineProperty(StoreHouse.prototype, "_categories", {

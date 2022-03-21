@@ -98,7 +98,9 @@ class StorehouseController {
 			let user = this.#auth.getUser(userCookie);
 			if (user) {
 				this.#user = this.#auth.getUser(userCookie);
-				this.onOpenSession(false);
+				setTimeout(() => {
+					this.onOpenSession(false);
+				}, 100);
 			}
 		} else {
 			this.onCloseSession();
@@ -155,6 +157,7 @@ class StorehouseController {
 
 	onAddAdminForm = () => {
 		this.#storehouseView.showAdminInMenu();
+		this.#storehouseView.bindAdminBackup(this.handleAdminBackup)
 	}
 
 	handleProductsCategoryList = (title) => {
@@ -324,12 +327,13 @@ class StorehouseController {
 		this.#storehouseView.bindNewCategoryForm(this.handleCreateCategory);
 	}
 
-	handleCreateCategory = (title) => {
+	handleCreateCategory = (title, description = title) => {
 		let category;
 		let done, error;
 
 		try {
 			category = new Category(title);
+			category.description = description;
 			done = true;
 			try {
 				this.#storehouse.addCategory(category);
@@ -368,8 +372,14 @@ class StorehouseController {
 	}
 
 	handleAddStockForm = () => {
-		this.#storehouseView.showStockFroms();
+		this.#storehouseView.showStockFroms(this.handleStockStore);
 		this.#storehouseView.bindAddStockForm(this.handleCreateStock);
+		this.#storehouseView.bindRemoveStockForm(this.handleDeleteStock);
+	}
+
+	handleStockStore = (cif) => {
+		let store = this.#storehouse.getStore(cif);
+		this.#storehouseView.showRemoveStockForm(this.#storehouse.getStoreProducts(store.store));
 	}
 
 	handleCreateStock = (serial, cif, stock) => {
@@ -404,6 +414,27 @@ class StorehouseController {
 			error = exception;
 		}
 		this.#storehouseView.showAddStockModal(done, isExist ? "han añadido" : "han creado", store.name, product.name, stock, error);
+	}
+
+	handleDeleteStock = (serial, cif) => {
+		let product, store;
+		let done, error;
+
+		try {
+			product = this.#storehouse.getProduct(serial);
+			store = this.#storehouse.getStore(cif);
+			product = product.product;
+			store = store.store;
+
+			this.#storehouse.removeProductStore(store, product);
+
+			this.onAddStockForm();
+			done = true;
+		} catch (exception) {
+			done = false;
+			error = exception;
+		}
+		this.#storehouseView.showRemoveStockModal(done, store.name, product.name, error);
 	}
 
 	handleStockForm = () => {
@@ -459,7 +490,7 @@ class StorehouseController {
 		this.onCloseSession();
 	}
 
-	handleShowInfoStoreHouse = () => {
+	handleAdminBackup = () => {
 		let string;
 		let categoriesJSON = [];
 		let productsJSON = [];
@@ -537,7 +568,7 @@ class StorehouseController {
 		}
 		string += JSON.stringify({ "stores": storesJSON });
 
-		this.#storehouseView.showDataStoreHouse(string);
+		this.#storehouseView.saveDataFromStoreHouse(string);
 	}
 
 }

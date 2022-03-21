@@ -47,3 +47,7 @@ V5:
   V5.1:
   - Carga de datos
   - Grabado de datos
+
+	V5.2:
+	- Arreglo Grabado de datos
+	- Formulario para borrar prodcutos de una tienda

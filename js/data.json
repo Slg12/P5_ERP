@@ -2,43 +2,43 @@
 	"categories": [
 		{
 			"title": "Super Ventas",
-			"description": "Super Ventas"
+			"description": "Los más vendidos"
 		},
 		{
 			"title": "+3",
-			"description": "+3"
+			"description": "Para todas las edades"
 		},
 		{
 			"title": "Digital",
-			"description": "Digital"
+			"description": "Para dispositivos electrónicos"
 		},
 		{
 			"title": "Vintage",
-			"description": "Vintage"
+			"description": "Antiguo"
 		},
 		{
 			"title": "Gran obra",
-			"description": "Gran obra"
+			"description": "Muy premiado"
 		},
 		{
 			"title": "Bajo Precio",
-			"description": "Bajo Precio"
+			"description": "Barato"
 		},
 		{
 			"title": "Juvenil",
-			"description": "Juvenil"
+			"description": "Para adolescentes"
 		},
 		{
 			"title": "Novedad",
-			"description": "Novedad"
+			"description": "Lo mas nuevo"
 		},
 		{
 			"title": "Utilidad",
-			"description": "Utilidad"
+			"description": "Calidad de vida"
 		},
 		{
 			"title": "Pasa Tiempo",
-			"description": "Pasa Tiempo"
+			"description": "Ocio"
 		}
 	],
 	"products": {

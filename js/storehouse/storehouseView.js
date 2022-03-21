@@ -21,7 +21,7 @@ import { Product, Book, Music, Monitor } from "./storehouse.js";
 import { Coords } from "./storehouse.js";
 import { Store } from "./storehouse.js";
 import { Category } from "./storehouse.js";
-import { newStoreValidation, removeStoreValidation, newProductValidation, removeProductValidation, newCategoryValidation, removeCategoryValidation, addStockValidation } from './validation.js';
+import { newStoreValidation, removeStoreValidation, newProductValidation, removeProductValidation, newCategoryValidation, removeCategoryValidation, addStockValidation, removeStockValidation } from './validation.js';
 
 
 class StorehouseView {
@@ -169,6 +169,7 @@ class StorehouseView {
 						<div class="p-3">
 							<h3 class="text-center">Gestión Stock</h3>
 							<a id="lnewStock" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#addStock" href="#products-title">Añadir Stock</a>
+							<a id="ldelStock" class="nav__container__items__link nav-link" data-bs-toggle="modal" data-bs-target="#removeStock" href="#products-title">Borrar Stock</a>
 						</div>
 					</div>
 				</div>
@@ -181,13 +182,13 @@ class StorehouseView {
 			</li>`);
 	}
 
-	bindShowInfoStoreHouse(handle) {
+	bindAdminBackup(handle) {
 		$('#admin-backup').click(function () {
 			handle();
 		})
 	};
 
-	showDataStoreHouse(string) {
+	saveDataFromStoreHouse(string) {
 		$('#fbHiddenValue').val(string);
 	};
 
@@ -634,6 +635,11 @@ class StorehouseView {
 									<div class="invalid-feedback">✗ Min 2 Letras</div>
 									<div class="valid-feedback">✓</div>
 								</div>
+								<div class="form-floating col-md-12">
+									<input type="text" class="form-control form__controls" id="fccDesc" placeholder="Descripción">
+									<label for="fccDesc" class="form__label">Descripción</label>
+									<div class="valid-feedback">✓</div>
+								</div>
 								<button class="form__button col-md-6" type="submit">Guardar Categoría</button>
 								<button class="form__button red col-md-6" type="reset">Borrar Formulario</button>
 							</form>
@@ -684,13 +690,13 @@ class StorehouseView {
 		removeCategoryValidation(handler);
 	}
 
-	showStockFroms() {
+	showStockFroms(handler) {
 		let addStockForm = $(
 			`<div class="modal fade" id="addStock" tabindex="-1" aria-labelledby="addStockLabel">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="addStockLabel">Gestión de Stock</h5>
+							<h5 class="modal-title" id="addStockLabel">Añadir Stock</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
@@ -717,16 +723,50 @@ class StorehouseView {
 				</div>
 			</div>`);
 
+		let removeStockForm = $(
+			`<div class="modal fade" id="removeStock" tabindex="-1" aria-labelledby="removeStockLabel">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="removeStockLabel">Borrar Stock</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form class="form row g-3" name="fRemStock" role="form" novalidate>
+								<div class="form col-md-12">
+									<select class="form-select form-select-lg pt-2 pb-3" id="frstStore" required>
+									</select>
+								</div>
+								<div class="form col-md-12">
+									<select class="form-select form-select-lg pt-2 pb-3" id="frstProduct" required>
+									</select>
+								</div>
+								<button class="form__button col-md-6" type="submit">Borrar Stock</button>
+								<button class="form__button red col-md-6" type="reset">Borrar Formulario</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>`);
+
 		this.main.append(addStockForm);
+		this.main.append(removeStockForm);
+
+		$('#frstStore').change(function () {
+			handler(this.value);
+		});
 	}
 
 	showStockStoreForm(stores) {
 		$('#fasStore').empty();
+		$('#frstStore').empty();
 		$('#fasStore').append(`<option value="" disabled selected>Elige una tienda</option>`);
+		$('#frstStore').append(`<option value="" disabled selected>Elige una tienda</option>`);
 
 		for (let store of stores) {
 			store = store.store;
 			$('#fasStore').append(`<option value="${store.cif}">${store.name}</option>`);
+			$('#frstStore').append(`<option value="${store.cif}">${store.name}</option>`);
 		}
 	}
 
@@ -740,8 +780,22 @@ class StorehouseView {
 		}
 	}
 
+	showRemoveStockForm(products) {
+		$('#frstProduct').empty();
+		$('#frstProduct').append(`<option value="" disabled selected>Elige un producto</option>`);
+
+		for (let product of products) {
+			product = product.product;
+			$('#frstProduct').append(`<option value="${product.serial}">${product.name}</option>`);
+		}
+	}
+
 	bindAddStockForm(handler) {
 		addStockValidation(handler);
+	}
+
+	bindRemoveStockForm(handler) {
+		removeStockValidation(handler);
 	}
 
 	showNewStoreModal(done, store, error) {
@@ -771,7 +825,6 @@ class StorehouseView {
 			newStoreModal.find('button').click(() => {
 				newStoreModal.on('hidden.bs.modal', function (event) {
 					document.fNewStore.reset();
-					// document.fNewStore.fcsCif.focus();
 					this.remove();
 				});
 				newStoreModal.modal('hide');
@@ -810,7 +863,6 @@ class StorehouseView {
 			remStoreModal.modal('show');
 			remStoreModal.find('button').click(() => {
 				remStoreModal.on('hidden.bs.modal', function (event) {
-					// document.fRemStore.reset();
 					this.remove();
 				});
 				remStoreModal.modal('hide');
@@ -849,7 +901,10 @@ class StorehouseView {
 			newProductModal.modal('show');
 			newProductModal.find('button').click(() => {
 				newProductModal.on('hidden.bs.modal', function (event) {
-					resetProductForm();
+					document.getElementById("fcpType").value = "Default";
+					$('#typeOfProduct').empty();
+					$('#typeOfProduct').append('<p class="text-muted text-center">Seleciona el tipo de producto</p>');
+					newProductValidation();
 					this.remove();
 				});
 				newProductModal.modal('hide');
@@ -895,7 +950,6 @@ class StorehouseView {
 			remProductModal.modal('show');
 			remProductModal.find('button').click(() => {
 				remProductModal.on('hidden.bs.modal', function (event) {
-					// document.fRemProduct.reset();
 					this.remove();
 				});
 				remProductModal.modal('hide');
@@ -935,7 +989,6 @@ class StorehouseView {
 			newCategoryModal.find('button').click(() => {
 				newCategoryModal.on('hidden.bs.modal', function (event) {
 					document.fNewCategory.reset();
-					// document.fNewCategory.fcsCif.focus();
 					this.remove();
 				});
 				newCategoryModal.modal('hide');
@@ -974,7 +1027,6 @@ class StorehouseView {
 			remCategoryModal.modal('show');
 			remCategoryModal.find('button').click(() => {
 				remCategoryModal.on('hidden.bs.modal', function (event) {
-					// document.fRemCategory.reset();
 					this.remove();
 				});
 				remCategoryModal.modal('hide');
@@ -1014,15 +1066,53 @@ class StorehouseView {
 			addStockModal.find('button').click(() => {
 				addStockModal.on('hidden.bs.modal', function (event) {
 					document.fAddStock.reset();
-					// document.fAddStock.fcsCif.focus();
 					this.remove();
 				});
 				addStockModal.modal('hide');
 			})
 		} else {
-			$(document.fAddStock).prepend(`<div class="error text-danger p-3" id="fesError"><i class="fas fa-exclamation-triangle"></i>${error}</div>`);
+			$(document.fAddStock).prepend(`<div class="error text-danger p-3" id="feasError"><i class="fas fa-exclamation-triangle"></i>${error}</div>`);
 			setTimeout(() => {
-				$('#fesError').remove();
+				$('#feasError').remove();
+			}, 3000);
+		}
+	}
+
+	showRemoveStockModal(done, store, product, error) {
+		$(document.fRemStock).find('div.error').remove();
+		if (done) {
+			let modal = $(`<div class="modal fade" id="removeStockModal" tabindex="-1"
+				data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="removeStockModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="removeStockModalLabel">Stock añadido</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<strong>${product}</strong> a sido eliminado de <strong>${store}</strong>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+						</div>
+					</div>
+				</div>
+			</div>`);
+			this.main.append(modal);
+			$('#removeStock').modal('hide');
+			let removeStockModal = $('#removeStockModal');
+			removeStockModal.modal('show');
+			removeStockModal.find('button').click(() => {
+				removeStockModal.on('hidden.bs.modal', function (event) {
+					document.fRemStock.reset();
+					this.remove();
+				});
+				removeStockModal.modal('hide');
+			})
+		} else {
+			$(document.fRemStock).prepend(`<div class="error text-danger p-3" id="fersError"><i class="fas fa-exclamation-triangle"></i>${error}</div>`);
+			setTimeout(() => {
+				$('#fersError').remove();
 			}, 3000);
 		}
 	}
