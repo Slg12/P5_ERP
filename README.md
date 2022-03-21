@@ -43,3 +43,7 @@ V4:
 V5:
 - Usuario admin necesario para acceder a la administración
 - Cookies
+
+  V5.1:
+  - Carga de datos
+  - Grabado de datos

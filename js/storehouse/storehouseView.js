@@ -172,8 +172,24 @@ class StorehouseView {
 						</div>
 					</div>
 				</div>
+			</li>
+			<li id="admin-backup">
+				<form name="fBackup" role="form" method="post" action="backup.php">
+					<input type="hidden" value="" name="backup" id="fbHiddenValue">
+					<button class="nav-link bg-transparent border-0 ps-3 pe-3" type="submit" name="fbBackup" id="fbBackup">Backup</button>
+				</form>
 			</li>`);
 	}
+
+	bindShowInfoStoreHouse(handle) {
+		$('#admin-backup').click(function () {
+			handle();
+		})
+	};
+
+	showDataStoreHouse(string) {
+		$('#fbHiddenValue').val(string);
+	};
 
 	showStoreFroms() {
 		let createStoreForm = $(
@@ -833,10 +849,7 @@ class StorehouseView {
 			newProductModal.modal('show');
 			newProductModal.find('button').click(() => {
 				newProductModal.on('hidden.bs.modal', function (event) {
-					document.getElementById("fcpType").value = "Default";
-					$('#typeOfProduct').empty();
-					$('#typeOfProduct').append('<p class="text-muted text-center">Seleciona el tipo de producto</p>');
-					newProductValidation();
+					resetProductForm();
 					this.remove();
 				});
 				newProductModal.modal('hide');
@@ -847,6 +860,13 @@ class StorehouseView {
 				$('#fenpError').remove();
 			}, 3000);
 		}
+	}
+
+	resetProductForm() {
+		document.getElementById("fcpType").value = "Default";
+		$('#typeOfProduct').empty();
+		$('#typeOfProduct').append('<p class="text-muted text-center">Seleciona el tipo de producto</p>');
+		newProductValidation();
 	}
 
 	showRemoveProductModal(done, serial, error) {
@@ -1583,6 +1603,7 @@ class StorehouseView {
 
 	removeAdminMenu() {
 		$('#admin-tools').remove();
+		$('#admin-backup').remove();
 	}
 }
 

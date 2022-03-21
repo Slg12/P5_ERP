@@ -1,0 +1,554 @@
+{
+	"categories": [
+		{
+			"title": "Super Ventas",
+			"description": "Super Ventas"
+		},
+		{
+			"title": "+3",
+			"description": "+3"
+		},
+		{
+			"title": "Digital",
+			"description": "Digital"
+		},
+		{
+			"title": "Vintage",
+			"description": "Vintage"
+		},
+		{
+			"title": "Gran obra",
+			"description": "Gran obra"
+		},
+		{
+			"title": "Bajo Precio",
+			"description": "Bajo Precio"
+		},
+		{
+			"title": "Juvenil",
+			"description": "Juvenil"
+		},
+		{
+			"title": "Novedad",
+			"description": "Novedad"
+		},
+		{
+			"title": "Utilidad",
+			"description": "Utilidad"
+		},
+		{
+			"title": "Pasa Tiempo",
+			"description": "Pasa Tiempo"
+		}
+	],
+	"products": {
+		"Book": [
+			{
+				"serial": "111-11-1111-111-1",
+				"name": "Biblie",
+				"price": 55,
+				"tax": "undefined",
+				"images": [
+					"book1Front.jpg",
+					"book1Reverse.jpg"
+				],
+				"editorial": "San Pablo",
+				"author": "Marcos el Evangelista",
+				"lenguage": "EN",
+				"genre": "Libro Sagrado",
+				"volume": 1,
+				"categories": [
+					"Super Ventas",
+					"Vintage",
+					"Gran obra"
+				]
+			},
+			{
+				"serial": "222-22-2222-222-2",
+				"name": "Don Quijote de la Mancha",
+				"price": 34.99,
+				"tax": "undefined",
+				"images": [
+					"book2Front.jpg",
+					"book2Reverse.jpg"
+				],
+				"editorial": "Cátedra",
+				"author": "Miguel de Cerbantes",
+				"lenguage": "ES",
+				"genre": "Novela",
+				"volume": 1,
+				"categories": [
+					"Super Ventas",
+					"Vintage",
+					"Gran obra",
+					"Pasa Tiempo"
+				]
+			},
+			{
+				"serial": "333-33-3333-333-3",
+				"name": "Harry Potter y el Prisionero de Azkaban",
+				"price": 17,
+				"tax": "undefined",
+				"images": [
+					"book3Front.jpg"
+				],
+				"editorial": "Salamandra",
+				"author": "J.K. Rowling",
+				"lenguage": "ES",
+				"genre": "Ciencia Ficción",
+				"volume": 3,
+				"categories": [
+					"+3",
+					"Bajo Precio",
+					"Juvenil",
+					"Novedad",
+					"Pasa Tiempo"
+				]
+			},
+			{
+				"serial": "444-44-4444-444-4",
+				"name": "Viaje en el tiempo 5 (Geronimo Stilton)",
+				"price": 18.95,
+				"tax": "undefined",
+				"images": [
+					"book4Front.jpg",
+					"book4Reverse.jpg"
+				],
+				"editorial": "Destino",
+				"author": "Elisabetta Dami",
+				"lenguage": "ES",
+				"genre": "Humor y avenura",
+				"volume": 5,
+				"categories": []
+			},
+			{
+				"serial": "555-55-5555-555-5",
+				"name": "La Cocina de tu Vida",
+				"price": 24,
+				"tax": "undefined",
+				"images": [
+					"book5Front.jpg"
+				],
+				"editorial": "Planeta",
+				"author": "Karlos Arguiñano",
+				"lenguage": "ES",
+				"genre": "Hogar",
+				"volume": 1,
+				"categories": [
+					"Super Ventas",
+					"+3",
+					"Bajo Precio",
+					"Novedad",
+					"Utilidad"
+				]
+			}
+		],
+		"Music": [
+			{
+				"serial": "Mc-1",
+				"name": "Wrecked",
+				"price": 3,
+				"tax": "undefined",
+				"images": [
+					"disk1Front.jpg"
+				],
+				"band": "Imagine Dragons",
+				"genre": "Indie",
+				"length": "4:04",
+				"date": "undefined",
+				"categories": [
+					"Super Ventas",
+					"Digital",
+					"Gran obra",
+					"Juvenil",
+					"Novedad",
+					"Pasa Tiempo"
+				]
+			},
+			{
+				"serial": "Mc-2",
+				"name": "Rime of the Ancient Mariner",
+				"price": 2.5,
+				"tax": "undefined",
+				"images": [
+					"disk2Front.jpg"
+				],
+				"band": "Iron Maiden",
+				"genre": "Heavy Metal",
+				"length": "13:38",
+				"date": "undefined",
+				"categories": []
+			},
+			{
+				"serial": "Mc-3",
+				"name": "Pigstep",
+				"price": 2,
+				"tax": "undefined",
+				"images": [
+					"disk3Front.jpg",
+					"disk3.jpg"
+				],
+				"band": "Lena Raine",
+				"genre": "Electronica",
+				"length": "2:29",
+				"date": "undefined",
+				"categories": [
+					"+3",
+					"Digital",
+					"Gran obra",
+					"Juvenil",
+					"Novedad",
+					"Pasa Tiempo"
+				]
+			},
+			{
+				"serial": "Mc-4",
+				"name": "Fiddler on the Green",
+				"price": 1.5,
+				"tax": "undefined",
+				"images": [
+					"disk4Front.jpg"
+				],
+				"band": "Demons & Wizards",
+				"genre": "Metal progresivo",
+				"length": "5:56",
+				"date": "undefined",
+				"categories": [
+					"Digital",
+					"Vintage",
+					"Gran obra",
+					"Bajo Precio",
+					"Juvenil",
+					"Pasa Tiempo"
+				]
+			},
+			{
+				"serial": "Mc-5",
+				"name": "Stressed Out",
+				"price": 3.5,
+				"tax": "undefined",
+				"images": [
+					"disk5Front.jpg"
+				],
+				"band": "Twenty One Pilots",
+				"genre": "Hip-Hop/Rap",
+				"length": "3:22",
+				"date": "undefined",
+				"categories": [
+					"Super Ventas",
+					"+3",
+					"Digital",
+					"Gran obra",
+					"Juvenil",
+					"Novedad",
+					"Pasa Tiempo"
+				]
+			}
+		],
+		"Monitor": [
+			{
+				"serial": "Mtr-1",
+				"name": "Lenovo D24-20",
+				"price": 119.99,
+				"tax": "undefined",
+				"images": [
+					"monitor1.jpg",
+					"monitor1Inputs.jpg"
+				],
+				"brand": "Lenovo",
+				"refreshRate": "75Hz",
+				"size": "23.8\"",
+				"color": "Negro",
+				"inputType": [
+					"HDMI",
+					"VGA"
+				],
+				"screenType": "Flat",
+				"categories": [
+					"Bajo Precio",
+					"Novedad",
+					"Utilidad"
+				]
+			},
+			{
+				"serial": "Mtr-2",
+				"name": "MSI Optix MAG272CQR",
+				"price": 399,
+				"tax": "undefined",
+				"images": [
+					"monitor2.jpg"
+				],
+				"brand": "MSI",
+				"refreshRate": "165Hz",
+				"size": "27\"",
+				"color": "Negro",
+				"inputType": [
+					"DP",
+					"HDMI"
+				],
+				"screenType": "Curved",
+				"categories": [
+					"Super Ventas",
+					"Juvenil",
+					"Novedad",
+					"Utilidad"
+				]
+			},
+			{
+				"serial": "Mtr-3",
+				"name": "Xiaomi Mi GL WQHD",
+				"price": 490,
+				"tax": "undefined",
+				"images": [
+					"monitor3.jpg"
+				],
+				"brand": "Xiaomi",
+				"refreshRate": "144Hz",
+				"size": "34\"",
+				"color": "Negro",
+				"inputType": [
+					"DP",
+					"HDMI"
+				],
+				"screenType": "Curved",
+				"categories": [
+					"Bajo Precio",
+					"Novedad",
+					"Utilidad"
+				]
+			},
+			{
+				"serial": "Mtr-4",
+				"name": "LG 29WN600-W",
+				"price": 245,
+				"tax": "undefined",
+				"images": [
+					"monitor4.jpg"
+				],
+				"brand": "LG",
+				"refreshRate": "75Hz",
+				"size": "29\"",
+				"color": "Gris",
+				"inputType": [
+					"DP",
+					"HDMI"
+				],
+				"screenType": "Flat",
+				"categories": []
+			},
+			{
+				"serial": "Mtr-5",
+				"name": "Odyssey G9",
+				"price": 1499,
+				"tax": "undefined",
+				"images": [
+					"monitor5.jpg",
+					"monitor5Inputs.jpg"
+				],
+				"brand": "Samsung",
+				"refreshRate": "240Hz",
+				"size": "49\"",
+				"color": "Negro",
+				"inputType": [
+					"HDMI"
+				],
+				"screenType": "Curved",
+				"categories": [
+					"Juvenil",
+					"Novedad",
+					"Utilidad"
+				]
+			}
+		]
+	},
+	"stores": [
+		{
+			"cif": "A - 11111111",
+			"name": "Sweet Home",
+			"address": "C/Ejemplos 12",
+			"phone": "111 11 11 11",
+			"coords": {
+				"latitude": "62",
+				"longitude": "72"
+			},
+			"products": [
+				{
+					"product": "111-11-1111-111-1",
+					"stock": 2
+				},
+				{
+					"product": "222-22-2222-222-2",
+					"stock": 23
+				},
+				{
+					"product": "Mtr-2",
+					"stock": 45
+				},
+				{
+					"product": "Mtr-4",
+					"stock": ""
+				},
+				{
+					"product": "Mc-5",
+					"stock": 4
+				}
+			]
+		},
+		{
+			"cif": "B - 22222222",
+			"name": "Troy-Anne",
+			"address": "C/Ejemplos 23",
+			"phone": "222 222 222",
+			"coords": {
+				"latitude": "56",
+				"longitude": "0"
+			},
+			"products": [
+				{
+					"product": "333-33-3333-333-3",
+					"stock": 75
+				},
+				{
+					"product": "Mc-2",
+					"stock": ""
+				},
+				{
+					"product": "Mtr-1",
+					"stock": 23
+				}
+			]
+		},
+		{
+			"cif": "C - 33333333",
+			"name": "Geekpool",
+			"address": "Av/Ejemplo 34",
+			"phone": "333 33 33 33",
+			"coords": {
+				"latitude": "42.6453",
+				"longitude": "45"
+			},
+			"products": [
+				{
+					"product": "Mc-1",
+					"stock": 234
+				},
+				{
+					"product": "Mtr-3",
+					"stock": 54
+				},
+				{
+					"product": "Mc-3",
+					"stock": ""
+				},
+				{
+					"product": "444-44-4444-444-4",
+					"stock": 65
+				},
+				{
+					"product": "Mtr-4",
+					"stock": 36
+				},
+				{
+					"product": "Mc-4",
+					"stock": 76
+				},
+				{
+					"product": "Mtr-5",
+					"stock": 24
+				}
+			]
+		},
+		{
+			"cif": "D - 44444444",
+			"name": "HighSound",
+			"address": "C/Ejemplos 45",
+			"phone": "444 444 444",
+			"coords": {
+				"latitude": "-67",
+				"longitude": "-165"
+			},
+			"products": [
+				{
+					"product": "Mc-1",
+					"stock": 80
+				},
+				{
+					"product": "Mtr-1",
+					"stock": 42
+				}
+			]
+		},
+		{
+			"cif": "E - 55555555",
+			"name": "El Emporio",
+			"address": "Av/Ejemplo 56",
+			"phone": "555 55 55 55",
+			"coords": {
+				"latitude": "-28.6783",
+				"longitude": "134"
+			},
+			"products": [
+				{
+					"product": "111-11-1111-111-1",
+					"stock": 23
+				},
+				{
+					"product": "222-22-2222-222-2",
+					"stock": 63
+				},
+				{
+					"product": "333-33-3333-333-3",
+					"stock": 27
+				},
+				{
+					"product": "444-44-4444-444-4",
+					"stock": 45
+				},
+				{
+					"product": "555-55-5555-555-5",
+					"stock": ""
+				},
+				{
+					"product": "Mc-1",
+					"stock": 34
+				},
+				{
+					"product": "Mc-2",
+					"stock": 75
+				},
+				{
+					"product": "Mc-3",
+					"stock": 3
+				},
+				{
+					"product": "Mc-4",
+					"stock": ""
+				},
+				{
+					"product": "Mc-5",
+					"stock": 87
+				},
+				{
+					"product": "Mtr-1",
+					"stock": 9
+				},
+				{
+					"product": "Mtr-2",
+					"stock": 3
+				},
+				{
+					"product": "Mtr-3",
+					"stock": 4
+				},
+				{
+					"product": "Mtr-4",
+					"stock": 37
+				},
+				{
+					"product": "Mtr-5",
+					"stock": ""
+				}
+			]
+		}
+	]
+}

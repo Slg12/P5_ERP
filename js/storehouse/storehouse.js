@@ -410,6 +410,8 @@ let StoreHouse = (function () {
 				);
 				if (index === -1) throw new ProductNotExistException(serial);
 
+				if (store === true) return this.#_products[index].product;
+
 				let stock = 0;
 
 				if (store) {
@@ -571,11 +573,10 @@ let StoreHouse = (function () {
 				if (indexStore === false) throw new StoreNotExistException(store);
 				let indexProd = this.#findProduct(product, this.#_products);
 				if (indexProd === false) throw new ProductNotExistException(product);
-				if (
-					this.#findProduct(product, this.#_stores[indexStore].products) !==
-					false
-				)
+				if (this.#findProduct(product, this.#_stores[indexStore].products) !== false)
 					throw new ProductExistException(product);
+
+				if (stock === "") stock = 0;
 				stock = parseInt(stock);
 				if (stock < 0) throw new NegativeStock(stock);
 				let newProd = Object.assign({}, this.#_products[indexProd]);

@@ -548,7 +548,6 @@ function removeProductValidation(handler) {
 		if (!isValid) {
 			firstInvalidElement.focus();
 		} else {
-			console.log(this.frsProduct.value);
 			handler(this.frsProduct.value);
 		}
 		event.preventDefault();
